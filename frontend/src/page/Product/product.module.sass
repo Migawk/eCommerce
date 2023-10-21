@@ -1,0 +1,299 @@
+@import ../../variables
+
+.main
+    padding: 0 90px
+
+.article
+    display: flex
+
+.photo
+    display: flex
+
+.list
+    display: flex
+    flex-direction: column
+    border-radius: 8px
+    overflow: hidden
+    height: 664px
+    overflow-y: scroll
+    &>*
+        margin: -20px 0
+        cursor: pointer
+    &Choosed
+        margin-top: -20px
+        z-index: 1
+
+.choosedPhoto
+    &Modal
+        z-index: 100
+        position: fixed
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+
+        display: flex
+        align-items: center
+        justify-content: center
+
+        background: rgba(48, 48, 48, .2)
+        & > img
+            cursor: zoom-out
+    & > img
+        cursor: zoom-in
+        z-index: 99
+
+.info
+    padding: 60px 0 0 60px
+    display: flex
+    flex-direction: column
+    gap: 32px
+    &Top
+        display: flex
+        align-items: center
+        justify-content: space-between
+        &Button
+            background: none
+            border: 1px solid #BCBFC2
+            border-radius: 50%
+
+            width: 40px
+            height: 40px
+
+            cursor: pointer
+            &:hover
+                border: 1px solid $orange2
+
+.description
+    display: flex
+    flex-direction: column
+    gap: 20px
+
+.size
+    display: flex
+    align-items: center
+    gap: 16px
+    &Text
+        width: 64px
+        font-weight: 700
+    &Fields
+        display: flex
+        gap: 12px
+        &>*
+            border: 2px solid rgba(0, 0, 0, 0)
+            border-radius: 4px
+            background: none
+            font-size: 14px
+            padding: 10px 16px
+            user-select: none
+            &:disabled
+                border: 2px solid $textSecondary
+                color: $tritary
+            &:hover
+                border: 2px solid $orange
+                color: $orange
+            &:hover:disabled
+                border: 2px solid $primary
+                color: $primary
+
+    &Aviable
+        border: 1px solid $gray
+        color: $secondary
+
+.color
+    display: flex
+    align-items: center
+    gap: 16px
+    &Text
+        width: 64px
+        font-weight: 700
+    &Fields
+        display: flex
+        gap: 12px
+        &>*
+            width: 12px
+            height: 12px
+            border-radius: 50%
+            &:hover
+                cursor: pointer
+
+.quantity
+    display: flex
+    align-items: center
+    gap: 16px
+    &Text
+        width: 64px
+        font-weight: 700
+    &Fields
+        display: flex
+        align-items: center
+        gap: 20px
+
+.check
+    background: $gray2
+    padding: 20px 12px
+    border-radius: 4px
+    &Price
+        font-weight: 700
+        font-size: 18px
+        padding-bottom: 8px
+        border-bottom: 1px solid $textSecondary
+    &Add
+        display: flex
+        align-items: center
+        justify-content: center
+
+        font-weight: 700
+        color: $gray2
+        background: $secondary
+
+        border: none
+        border-radius: 50%
+
+        padding: 3px
+
+        width: 18px
+        height: 18px
+
+        cursor: pointer
+    &Insurance
+        display: flex
+        align-items: center
+        gap: 6px
+
+        padding-top: 8px
+        font-size: 12px
+        font-weight: 700
+
+        user-select: none
+        cursor: pointer
+
+        &Small
+            font-size: 10px
+
+.buttons
+    display: flex
+    justify-content: space-between
+    gap: 20px
+    &>*
+        width: 50%
+
+.chapters
+    margin-top: 40px
+    &Buttons
+        display: flex
+        justify-content: center
+        gap: 64px
+
+        padding-bottom: 20px
+        margin-bottom: 20px
+        border-bottom: 1px solid $stroke
+        &>button
+            font-size: 14px
+            font-weight: 700
+            color: $tritary
+
+            background: none
+            border: none
+            cursor: pointer
+            &:disabled
+                color: $primary
+                cursor: auto
+
+.chapter
+    &Details
+        display: grid
+        grid-template-columns: 1fr 1fr
+        gap: 20px
+        row-gap: 24px
+
+        &>p
+            height: min-content
+            font-size: 14px
+            color: $secondary
+            &>h1
+                font-size: 16px
+                margin-bottom: 16px
+                color: $primary
+            &>ul
+                display: flex
+                flex-direction: column
+                gap: 12px
+                &>li
+                    margin-left: 16px
+    &Reviews
+        display: flex
+        justify-content: space-between
+        padding: 0 210px
+
+.review
+    border-bottom: 1px solid $stroke
+    padding: 32px
+    &Header
+        display: flex
+        flex-direction: column
+        gap: 20px
+        &Info
+            color: $secondary
+            font-size: 14px
+    &Top
+        display: flex
+        gap: 24px
+        margin-bottom: 32px
+    &Statistics
+        display: flex
+        flex-direction: column
+        gap: 16px
+    &Rate
+        display: flex
+        gap: 1px
+        &>img
+            width: 12px
+    &Fields
+        display: flex
+        flex-direction: column
+        gap: 16px
+    &Field
+        display: flex
+        &Name
+            min-width: 128px
+            color: $tritary
+
+.shipping
+    &Table
+        &>tr>td, th
+            text-align: left
+            width: 165px
+            font-size: 14px
+    &Payment
+        display: flex
+        flex-direction: column
+        gap: 32px
+
+        font-size: 14px
+        &Info
+            display: flex
+            flex-direction: column
+            gap: 12px
+            &Title
+                font-size: 16px
+                font-weight: 700
+        &Method
+            display: flex
+            gap: 40px
+    &Insurance
+        display: flex
+        align-items: center
+        gap: 12px
+        user-select: none
+        &>input
+            width: 20px
+            height: 20px
+
+
+
+
+
+.offerFooter
+    margin-top: 40px
+    padding: 32px 0

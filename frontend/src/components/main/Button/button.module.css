@@ -1,0 +1,70 @@
+.button {
+  padding: 16px 32px;
+  background: #4172DC;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.buttonText {
+  z-index: 5;
+}
+
+.sky {
+  background: #5489EF;
+}
+
+.ocean {
+  background: #345BB0;
+}
+
+.white {
+  background: none;
+  border: 2px solid #fff;
+  padding: 12px 24px;
+  transition: 0.5s;
+  overflow: hidden;
+}
+.white:hover {
+  background: none;
+  border: 2px solid rgba(0, 0, 0, 0);
+  color: #262626;
+  transition: 0.25s;
+}
+.white:hover .animationAbs {
+  transform: scale(25);
+  margin-left: 0;
+}
+
+.animation {
+  position: relative;
+}
+.animationAbs {
+  transition: 1s;
+  position: absolute;
+  background: #fff;
+  width: 25px;
+  height: 25px;
+  margin-left: 100px;
+  border-radius: 50%;
+}
+.gray {
+  border: 1px solid #434343;
+  color: #434343;
+  background: none;
+}
+.tag {
+  background: #00A95D;
+}
+
+.tiny {
+  font-size: 10px;
+  padding: 6px;
+}
+
+/*# sourceMappingURL=button.module.css.map */

@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @unique @default(uuid())
+
+  name String @unique
+  password String
+
+  role ROLE @default(MEMBER)
+
+  products Product[]
+  reviews Review[] @relation(name: "userRev")
+
+  favProducts Product[] @relation("favorite")
+}
+
+model Product {
+  id String @id @unique @default(uuid())
+
+  name String @unique
+  price Int
+  discount Int?
+  colors String[] // ["HEX", "rrr, ggg, bbb"]
+  description String[] // ["Markdown", "Markdown"]
+  photos String[]
+  size String[] // ["SIZE, AVIABLE/SOLD"] -> ["XS, AVIABLE"]
+  rate Int @default(0)// Counts by average arithmetic in server
+  
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  status STATUS
+
+  countLeft Int
+  countSold Int
+
+  reviews Review[] @relation(name: "productRev")
+  favUsers User[] @relation("favorite")
+
+  shipping Shipping[] @relation("shipping")
+}
+
+model Review {
+  productId String
+  userId String
+
+  rate VOTE
+
+  adventages String
+  disadventages String
+  description String
+
+  product Product @relation(fields: [productId], references: [id], name: "productRev")
+  user User @relation(fields: [userId], references: [id], name: "userRev")
+
+  @@id([productId, userId])
+}
+
+model Shipping {
+  id String @id @unique @default(uuid())
+  name String
+  logo String
+
+  price Int
+  duration String
+  insurance Boolean
+
+  products Product[] @relation("shipping")
+}
+
+enum ROLE {
+  ADMIN
+  MODERATOR
+  MEMBER
+  BANNED
+}
+enum STATUS {
+  InStock
+  RunningOut
+  EMPTY
+}
+
+enum VOTE {
+  UP
+  DOWN
+}

@@ -1,0 +1,117 @@
+@import ../../variables
+
+.cover
+  &Info
+    position: absolute
+    width: 58%
+    padding-left: 20%
+    padding-top: 100px
+    color: $white
+
+  &Image
+    width: 100%
+
+.post
+  display: flex
+  flex-direction: column
+  gap: 24px
+  &>*
+    text-transform: uppercase
+    width: fit-content
+  &>h1
+    font-size: 40px
+    font-weight: 800
+  &Info
+    display: flex
+    gap: 32px
+    &>div
+      display: flex
+      gap: 6px
+      font-size: 12px
+      &>span
+        width: 100%
+
+.blogs
+  padding: 0 90px
+.blog
+  &Wrapper
+    &First
+      display: grid
+      grid-template-columns: 1fr 1fr 1fr
+      gap: 20px
+
+.Wrapper
+  &Big
+    grid-column-start: 1
+    grid-column-end: 3
+    grid-row-start: 1
+    grid-row-end: 3
+    background-color: #E9E9E9
+    display: flex
+    justify-content: space-between
+    &Info
+      display: flex
+      flex-direction: column
+      justify-content: space-between
+      padding: 40px 0 40px 16px
+      &>h3
+        font-size: 20px
+      &>p
+        font-size: 14px
+        color: $secondary
+      &>button
+        width: fit-content
+  &Short
+    grid-column-start: 3
+    grid-column-end: 4
+    grid-row-start: 1
+    grid-row-end: 3
+
+.news
+  padding: 0 8px
+  margin-top: 16px
+
+  display: flex
+  flex-direction: column
+  gap: 4px
+  &Heading
+    color: $orange
+    font-size: 14px
+  &Title
+    font-weight: 700
+  &Description
+    color: $secondary
+    width: 100%
+  &Footer
+    margin-top: 8px
+    display: flex
+    align-items: center
+    gap: 12px
+  
+    font-size: 12px
+    color: $tritary
+  &Comments
+    display: flex
+    gap: 6px
+    align-items: center
+  &Image
+    width: 100%
+    height: auto
+
+.button
+  background: none
+  color: $white
+
+  border: 1px solid $white
+  border-radius: 4px
+
+  cursor: pointer
+
+  padding: 12px 20px
+
+  display: flex
+  gap: 4px
+
+.blue
+  background: $button
+  color: $white

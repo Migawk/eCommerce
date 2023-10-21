@@ -1,0 +1,114 @@
+@import ../../../variables
+
+.card1
+  border-radius: 8px
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.10)
+  padding: 16px 0 8px 0
+  width: 300px
+
+  display: flex
+  align-items: center
+  flex-direction: column
+  text-decoration: none
+  color: #000
+  &Deal
+    font-weight: 800
+    color: $tritary
+  &Image
+    padding: 16px 0
+  &Bottom
+    display: flex
+    flex-direction: column
+    gap: 6px
+  &Name
+    font-weight: 700
+    color: $primary
+  &Des
+    font-size: 12px
+    color: $secondary
+  &Offer
+    display: flex
+    gap: 10px
+    align-items: center
+  &Price
+    color: $orange2
+    font-size: 14px
+    font-weight: 700
+  &Discount
+    text-decoration: line-through
+    &Box
+      padding: 3px 4.5px
+
+      background: $orange2
+      color: $white
+
+      border-radius: 2px
+
+      font-weight: 600
+      font-size: 10px
+
+.card2
+  display: flex
+  flex-direction: column
+  border-radius: 8px
+  overflow: hidden
+
+  &Cover
+    margin-bottom: -5px
+
+  &Panel
+    position: absolute
+    padding: 10px
+
+  &Info
+    color: $white
+    background: $primary
+    padding: 18px 20px
+
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+  &Text
+    display: flex
+    flex-direction: column
+    gap: 12px
+  &Title
+    font-weight: 700
+  &Descr
+    font-size: 14px
+    color: $secondary
+
+.leaflets
+  display: flex
+  justify-content: space-between
+  gap: 20px
+  margin: 68px 90px 0 90px
+
+.leaflet
+  display: flex
+  &>*
+    width: 50%
+  &Info
+    display: flex
+    flex-direction: column
+    justify-content: center
+    gap: 32px
+    padding: 0 20px
+    color: $white
+    // width: 310px
+    &>a
+      font-size: 20px
+      text-decoration: underline
+  &Top
+    display: flex
+    flex-direction: column
+    gap: 16px
+    &>h1
+      font-size: 36px
+      font-weight: 900
+    &>h2
+      font-size: 28px
+      font-weight: 600
+  &Link
+    color: $white

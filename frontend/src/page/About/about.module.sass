@@ -1,0 +1,175 @@
+@import ../../variables
+
+.main
+    padding: 0 90px
+.wrapper
+    display: flex
+    align-items: center
+    gap: 120px
+    margin-bottom: 50px
+    
+.know
+    font-size: 24px
+    margin-bottom: 16px
+.title
+    letter-spacing: .12px
+    font-size: 46px
+    font-weight: 600
+    color: $primary
+    margin-bottom: 24px
+    &Blue
+        color: $blue
+.description
+    line-height: 46px
+    letter-spacing: .12px
+    font-size: 18px
+    color: $secondary
+    margin-bottom: 20px
+.stats
+    display: flex
+    justify-content: space-between
+    align-items: center
+.stat
+    display: flex
+    flex-direction: column
+    &>*:first-child
+        font-size: 38px
+        font-weight: 600
+        color: $blue
+    &>*:nth-child(2)
+        color: $secondary
+        font-size: 18px
+        line-height: 36px
+        letter-spacing: .12px
+.info
+    &Box
+        background: #E2EAF2
+        padding: 26px 10px
+        border-radius: 10px
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+    &Text
+        font-size: 24px
+        text-align: center
+        letter-spacing: .15px
+        line-height: 38px
+        color: $secondary
+        width: 280px
+    &Field
+        display: flex
+        justify-content: flex-end
+.geo
+    display: flex
+    gap: 10px
+    background: $white
+    border: 2px solid $white
+    border-radius: 24px
+    padding: 12px
+    margin: 24px
+    position: absolute
+    cursor: pointer
+    transition: .5s
+    &:hover
+        border: 2px solid #2747C5
+.quotes
+    position: absolute
+    &Border
+        display: flex
+        align-items: center
+        justify-content: center
+        background: #EAF3FB
+        padding: 20px
+        position: relative
+        width: 82px
+        height: 82px
+        top: -96px
+        border-radius: 50%
+        overflow: hidden
+
+.cards
+    display: grid
+    grid-template-columns: 1fr 1fr
+    gap: 16px
+
+.card
+    display: flex
+    align-items: center
+    text-align: center
+    flex-direction: column
+    gap: 8px
+    border-radius: 4px
+    box-shadow: 0 4px 14px 0px rgba(0, 0, 0, 0.06)
+    padding: 20px
+    &Img
+        background: #EAF3FB
+        padding: 4px
+        border-radius: 4px
+    &Name
+        font-weight: 600
+        font-size: 12px
+    &Description
+        font-size: 12px
+        line-height: 23px
+        letter-spacing: .12px
+        color: $secondary
+
+.leaflet
+    display: flex
+    justify-content: space-between
+    background: $primary
+    color: $white
+    &Form
+        padding: 56px
+        width: 50%
+    &Title
+        font-size: 48px
+        &Gold
+            color: #FFC94B
+    &Img
+        overflow: hidden
+        width: 50%
+
+.field
+    &Text
+        font-size: 14px
+        font-weight: 600
+        letter-spacing: .12px
+        padding-bottom: 12px
+    &Content
+        display: flex
+        gap: 14px
+        align-items: center
+        border: 2px solid $tritary
+        border-radius: 4px
+        &>img
+            padding-left: 12px
+        &>input
+            background: none
+            border: none
+            color: $white
+            width: 100%
+            height: 100%
+            padding: 16px 10px
+            outline: none
+    &>textarea
+        background: none
+        border: 2px solid $tritary
+        border-radius: 4px
+        color: $white
+        width: 100%
+        height: 100%
+        padding: 16px 10px
+        outline: none
+        resize: none
+        display: block
+
+.form
+    display: flex
+    flex-direction: column
+    gap: 32px
+.img
+    width: auto
+    height: 100%
+    overflow: hidden

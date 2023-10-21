@@ -1,0 +1,57 @@
+@import ../../../variables
+
+.button
+  padding: 16px 32px
+
+  background: $button
+  color: $white
+  border: none
+  border-radius: 4px
+
+  cursor: pointer
+
+  font-size: 14px
+
+  display: flex
+  gap: 6px
+
+.sky
+  background: $sky
+.ocean
+  background: $ocean
+
+.white
+  background: none
+  border: 2px solid $white
+  // It's maybe greatest mistake
+  padding: 12px 24px
+  transition: .5s
+  overflow: hidden
+  &:hover
+    // background: $white
+    background: none
+    border: 2px solid rgba(0,0,0,0)
+    color: $primary
+    transition: .25s
+  &:hover .animationAbs
+    width: 500px
+    margin-left: 10px
+
+.animation
+  position: relative
+  &Abs
+    position: absolute
+    background: red
+    width: 25px
+    height: 25px
+    margin-left: 100px
+  //
+  //   // using margins it possible to move instead of top, left and relative addition element
+  //   margin-left: 500px
+
+.tag
+  background: #00A95D
+
+.tiny
+  font-size: 10px
+  padding: 6px

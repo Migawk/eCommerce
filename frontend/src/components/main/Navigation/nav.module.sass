@@ -1,0 +1,23 @@
+@import ../../../variables
+
+.nav
+    display: flex
+    align-items: center
+    gap: 4px
+    padding: 24px 0
+.row
+    display: flex
+    align-items: center
+    gap: 4px
+    &>a
+        text-decoration: none
+        color: $secondary
+        font-size: 14px
+        transition: .5s
+        &:hover
+            text-shadow: 0 0 1px $secondary
+        &:visited
+            color: $secondary
+.arrow
+    height: 8px
+    width: 3px

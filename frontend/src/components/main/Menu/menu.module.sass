@@ -1,0 +1,102 @@
+@import ../../../variables
+.list
+    display: flex
+    justify-content: space-between
+    list-style: none
+    padding: 0 90px
+
+.element
+    border: none
+    background: none
+    transition: 1s
+    transition-timing-function: easy-in
+    cursor: pointer
+    padding: 16px 0
+    &:hover
+        color: $orange
+        font-weight: 700
+        padding: 16px 10px
+
+// SubCategory
+
+.subCategory
+  padding: 24px
+  margin: 24px
+  position: absolute
+  background: $white
+  border-radius: 8px
+  box-shadow: 4px 4px 16px $textSecondary
+  z-index: 1
+.navigation
+    display: flex
+    gap: 48px
+.group
+    display: flex
+    flex-direction: column
+    gap: 40px
+.items
+  list-style: none
+  display: flex
+  flex-direction: column
+  gap: 8px
+  &>*
+    transition: 1s
+    cursor: pointer
+    width: max-content
+    &:hover
+      color: $orange
+      padding: 2px 0
+.categoryName
+  transition: 1s
+  cursor: pointer
+  width: max-content
+  &:hover
+    color: $orange
+
+// Banner
+
+.banner
+  display: flex
+  &Img
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    &>div
+      position: absolute
+      transform: translate(50%, 0)
+  &Window
+    background: $white
+    &Content
+      display: flex
+      flex-direction: column
+      align-items: center
+      font-weight: 700
+      color: $primary
+      padding: 36px 30px
+    &Info
+      text-align: center
+      background: $primary
+      color: $white
+      padding: 10px 0
+  &Info
+    background-image: url("../../../assets/png/sky.png")
+    background-position: bottom right
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+
+  &Content
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-direction: column
+    gap: 32px
+
+  &Title
+    font-weight: 700
+    font-size: 32px
+    color: $white
+  &SubTitle
+    font-size: 28px
+    color: $white

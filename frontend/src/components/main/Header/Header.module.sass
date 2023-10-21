@@ -1,0 +1,137 @@
+@import ../../../variables
+.header
+    background: $white
+    padding-bottom: 28px
+.top
+    padding: 1.75rem 5.625rem
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+.logo
+    display: flex
+    align-items: center
+    gap: .375rem
+    font-weight: 700
+    font-size: 2rem
+    color: $primary
+    text-decoration: none
+
+.search
+    border: 1px solid $stroke
+    border-radius: .25rem
+    display: flex
+    align-items: center
+    &>*
+        border: none
+        background: none
+        padding: 12px 10px
+    &Button
+        border-left: 1px solid $stroke
+        cursor: pointer
+
+nav>ul
+    display: flex
+    &>li
+        list-style: none
+        font-size: 14px
+        &>a
+            display: block
+            width: 96px
+            color: $text
+            text-decoration: none
+            font-size: 14px
+
+.contacts
+    display: flex
+    gap: 14px
+    align-items: center
+    &>button
+        cursor: pointer
+        background: none
+        border: none
+    &Spec>button
+      border: 2px solid #D9DADB
+      border-radius: 50%
+      background: 0
+      width: 40px
+      height: 40px
+      display: flex
+      align-items: center
+      justify-content: center
+
+.bottom
+    padding: .5rem 5.625rem
+    background: #262626
+    color: $white
+    display: flex
+    justify-content: space-between
+    align-items: center
+    &Center
+        border-left: 1px solid $gray
+        border-right: 1px solid $gray
+        width: 33%
+        display: flex
+        justify-content: center
+    &Right
+        display: flex
+        justify-content: space-between
+        gap: 20px
+        width: 33%
+        padding: 0 24px
+        &>button
+            border: none
+            background: none
+            color: $white
+            display: flex
+            gap: 4px
+            align-items: center
+    &Left
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 33%
+.countOrders
+    background: $green400
+    width: 24px
+    height: 24px
+    border-radius: 50%
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 14px
+.ann
+    font-size: 12px
+    width: 256px
+    display: flex
+    align-items: center
+    gap: 10px
+    &Head
+        font-weight: 700
+    &Desc
+        color: $textSecondary
+
+.categories
+    border: none
+    background: none
+    cursor: pointer
+    height: min-content
+    padding: 2px 6px
+    margin-right: 12px
+
+    font-size: 20px
+    font-weight: 700
+    color: $white
+
+    display: inline-flex
+    align-items: center
+    gap: 4px
+
+.selects
+  display: flex
+  justify-content: space-between
+  gap: 12px
+  &>select
+      border: none
+      background: none
+      color: $white
