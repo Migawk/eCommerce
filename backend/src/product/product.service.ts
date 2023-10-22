@@ -48,7 +48,22 @@ export class ProductService {
             const res = await this.prisma.product.create({
                 data: {
                     ...product,
-                    authorId: author.id
+                    authorId: author.id,
+                    
+                    categories: {
+                        connect: [
+                            {
+                                id: "a16c1438-9145-4640-a85f-221bed4c464a"
+                            },
+                            {
+                                id: "4e476036-341d-4491-8d5c-02c1eb699641"
+                            },
+                            
+                        ]
+                    //   connect: {
+                    //     id: "a16c1438-9145-4640-a85f-221bed4c464a"
+                    //   }
+                    }
                 },
             })
             return res;

@@ -13,12 +13,14 @@ import { ProductModule } from './product/product.module';
 import { CdnModule } from './cdn/cdn.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CategoryController } from './category/category.controller';
+import { CategoryService } from './category/category.service';
 
 @Module({
   imports: [AuthModule, ProductModule, CdnModule, ServeStaticModule.forRoot({
     rootPath: join(__dirname, "..", "..", "client")
   })],
-  controllers: [AppController, UserController, AuthController, ProductController],
-  providers: [AppService, PrismaService, UserService, AuthService, ProductService],
+  controllers: [AppController, UserController, AuthController, ProductController, CategoryController],
+  providers: [AppService, PrismaService, UserService, AuthService, ProductService, CategoryService],
 })
 export class AppModule {}

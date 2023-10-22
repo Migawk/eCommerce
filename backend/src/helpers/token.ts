@@ -20,12 +20,19 @@ function parse(body: ITokens) {
 export function generateToken(body: ITokens) {
     const isOk = parse(body);
     if(!isOk.success) return isOk;
-    
+
     const exp = Date.now() + Math.round(1000 * 60 * 60 * 24 * 3); // 3 days
 
     return sign({data: body, exp}, env.JWT_HASH);
 
 }
-export function verifyToken(token: string) {
+type TVerifyToken = undefined | {
+    data: {
+        id: string,
+        name: string,
+        password: string,
+    }
+};
+export function verifyToken(token: string): TVerifyToken {
     return verify(token, env.JWT_HASH)
 }

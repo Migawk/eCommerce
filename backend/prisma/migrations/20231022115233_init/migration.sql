@@ -4,15 +4,13 @@ CREATE TYPE "ROLE" AS ENUM ('ADMIN', 'MODERATOR', 'MEMBER', 'BANNED');
 -- CreateEnum
 CREATE TYPE "STATUS" AS ENUM ('InStock', 'RunningOut', 'EMPTY');
 
--- CreateEnum
-CREATE TYPE "VOTE" AS ENUM ('UP', 'DOWN');
-
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "role" "ROLE" NOT NULL DEFAULT 'MEMBER',
+    "isVerified" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -37,10 +35,18 @@ CREATE TABLE "Product" (
 );
 
 -- CreateTable
+CREATE TABLE "Category" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Review" (
     "productId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "rate" "VOTE" NOT NULL,
+    "rate" INTEGER NOT NULL,
     "adventages" TEXT NOT NULL,
     "disadventages" TEXT NOT NULL,
     "description" TEXT NOT NULL,
@@ -72,6 +78,18 @@ CREATE TABLE "_shipping" (
     "B" TEXT NOT NULL
 );
 
+-- CreateTable
+CREATE TABLE "_categories" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "_CategoryToProduct" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_id_key" ON "User"("id");
 
@@ -83,6 +101,9 @@ CREATE UNIQUE INDEX "Product_id_key" ON "Product"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Product_name_key" ON "Product"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Category_id_key" ON "Category"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Shipping_id_key" ON "Shipping"("id");
@@ -98,6 +119,18 @@ CREATE UNIQUE INDEX "_shipping_AB_unique" ON "_shipping"("A", "B");
 
 -- CreateIndex
 CREATE INDEX "_shipping_B_index" ON "_shipping"("B");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_categories_AB_unique" ON "_categories"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_categories_B_index" ON "_categories"("B");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_CategoryToProduct_AB_unique" ON "_CategoryToProduct"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_CategoryToProduct_B_index" ON "_CategoryToProduct"("B");
 
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -119,3 +152,15 @@ ALTER TABLE "_shipping" ADD CONSTRAINT "_shipping_A_fkey" FOREIGN KEY ("A") REFE
 
 -- AddForeignKey
 ALTER TABLE "_shipping" ADD CONSTRAINT "_shipping_B_fkey" FOREIGN KEY ("B") REFERENCES "Shipping"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_categories" ADD CONSTRAINT "_categories_A_fkey" FOREIGN KEY ("A") REFERENCES "Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_categories" ADD CONSTRAINT "_categories_B_fkey" FOREIGN KEY ("B") REFERENCES "Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_CategoryToProduct" ADD CONSTRAINT "_CategoryToProduct_A_fkey" FOREIGN KEY ("A") REFERENCES "Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_CategoryToProduct" ADD CONSTRAINT "_CategoryToProduct_B_fkey" FOREIGN KEY ("B") REFERENCES "Product"("id") ON DELETE CASCADE ON UPDATE CASCADE;

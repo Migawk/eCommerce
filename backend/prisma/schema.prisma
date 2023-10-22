@@ -18,6 +18,8 @@ model User {
 
   role ROLE @default(MEMBER)
 
+  isVerified Boolean @default(false)
+
   products Product[]
   reviews Review[] @relation(name: "userRev")
 
@@ -48,13 +50,26 @@ model Product {
   favUsers User[] @relation("favorite")
 
   shipping Shipping[] @relation("shipping")
+
+  categories Category[]
+}
+
+model Category {
+  id String @id @unique @default(uuid())
+
+  name String
+
+  parentCategories Category[] @relation("categories")
+  subCategories Category[] @relation("categories")
+
+  products Product[]
 }
 
 model Review {
   productId String
   userId String
 
-  rate VOTE
+  rate Int
 
   adventages String
   disadventages String
@@ -88,9 +103,4 @@ enum STATUS {
   InStock
   RunningOut
   EMPTY
-}
-
-enum VOTE {
-  UP
-  DOWN
 }
