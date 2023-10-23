@@ -22,7 +22,7 @@ export default interface IProduct {
 
 export interface IReview {
     productId: string
-    user: { 
+    user: {
         name: string
         id: string
     }

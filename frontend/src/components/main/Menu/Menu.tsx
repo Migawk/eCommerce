@@ -11,15 +11,24 @@ export default function ProductNavigation() {
 
     ev.subscribe((e: any) => {
       const target: {id: string, parentNode: {id: string}} | null = e.target as any;
-      if(!target || !target.id) return;
-      if(target.id === "subCategory" || target.parentNode.id === "category") return;
+      if(!target) return;
+      if(target.id === "subCategory" || target.id === "ignore") return; // if hovered on panel, interrupt
+      let id;
 
-      if(!target.parentNode.id) return setChoosed({num: 0, left: 0});
+      if(!target.id) {
+        if(!target.parentNode.id) return;
+        const parent = target.parentNode.id.split(" ");
+        if(parent[0] === "category") id = parent;
+      } else {
+        const node = target.id.split(" ");
+        if(node[0] === "category") id = node;
+      }
 
-      if(target.parentNode.id.split(" ")[0] === "category") {
+      if(!id) return setChoosed({num: 0, left: 0});
+      if(id[0] === "category") {
         const size = 1250+90;
         const position = e.clientX+size > window.innerWidth ? window.innerWidth - size : e.clientX;
-        setChoosed({num: e.target.parentNode.id.split(" ")[1], left: position});
+        setChoosed({num: Number(id[1]), left: position});
       } else {
         setChoosed({num: 0, left: 0});
       }
@@ -32,7 +41,7 @@ export default function ProductNavigation() {
           <ul className={styles.list}>
             {choosed.num > 0 ? <SubCategory left={choosed.left}/> : null}
             <li id="category 1">
-          	  <button className={styles.element}>
+          	  <button className={styles.element} id="category 1">
                 Woman
               </button>
             </li>

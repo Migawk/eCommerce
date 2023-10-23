@@ -14,6 +14,7 @@ import Blog from "./page/Blog/Blog.tsx";
 import NotFound from "./page/404/Err404.tsx";
 import About from './page/About/About.tsx';
 import ProductPage from './page/Product/Product.tsx';
+import CategoryPage from "./page/Category/Category.tsx";
 import Test from './page/Test.tsx';
 
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <Layout><About/></Layout>
+  },
+  {
+    path: "/category/:id",
+    element: <Layout><CategoryPage/></Layout>
   },
   {
     path: "/product/:id",

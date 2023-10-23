@@ -1,6 +1,6 @@
 # Back-end
-[ ] Rewrite prisma-schema( There is wrong rate, instead of UP/DOWN 1-5).
-[ ] Create one more server for CDN.
+[X] Rewrite prisma-schema( There is wrong rate, instead of UP/DOWN 1-5).
+[ ] Create server for CDN, instead of gateway /cdn.
 [ ] Add Blogs to general schema.
 [ ] Add tests.
 
@@ -13,7 +13,7 @@
 [ ] Finish blogs.
 
 ## Add
-[ ] Add Zustand/Redux.
+[ ] Add Zustand/Redux for Basket, User, maybe some extra-stuff.
 
 ## Styles
 [ ] Add more animations, activities for user.

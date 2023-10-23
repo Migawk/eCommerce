@@ -172,20 +172,20 @@ export default function SubCategory({left}: {left: number}) {
 	const categories = lodash.chunk(rawCategories,2);
 	return (
 		<div className={styles.subCategory} id="subCategory" style={{left: left + "px"}}>
-			<div className={styles.navigation}>
+			<div className={styles.navigation} id="ignore">
 					{
 						categories.map(el => {
 							return (
-								<div className={styles.group}>
+								<div className={styles.group} id="ignore">
 									{el.map(category => {
 										return (
-											<div>
-												<h2 className={styles.categoryName}>{category.name}</h2>
-												<ul className={styles.items}>
+											<div id="ignore">
+												<h2 className={styles.categoryName} id="ignore">{category.name}</h2>
+												<ul className={styles.items} id="ignore">
 													{
 														category.items.map(subCategory => {
 															return (
-																<li>
+																<li id="ignore">
 																	{subCategory.name}
 																</li>
 															)

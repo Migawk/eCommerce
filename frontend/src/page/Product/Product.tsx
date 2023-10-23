@@ -1,6 +1,6 @@
 import styles from "./product.module.sass";
 
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Navigation from "../../components/main/Navigation/Navigation";

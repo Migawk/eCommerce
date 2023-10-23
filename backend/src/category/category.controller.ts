@@ -18,7 +18,8 @@ export class CategoryController {
     const check = z.object({
       name: z.string()
     }).safeParse(body);
+
     if(!check.success) throw new HttpException({message: "name field at least"}, HttpStatus.BAD_REQUEST)
-    return this.service.createCategory(body.name);
+    return this.service.createCategory(body);
   }
 }

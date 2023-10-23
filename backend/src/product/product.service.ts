@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { verifyToken } from 'src/helpers/token';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { IAuthor } from 'types/user';
+import { MtMParser } from "src/helpers/prisma";
 import z from 'zod';
 
 export interface IProduct {
@@ -18,6 +19,8 @@ export interface IProduct {
     countSold: number
 
     authorId?: string
+
+    categories?: string[]
 }
 
 @Injectable()
@@ -44,32 +47,37 @@ export class ProductService {
         const parse = this.parse(product);
         if (!parse.success) return { message: "wrongData", data: parse };
 
+        /*
+          Parser for categories.
+          ["uuid"] => [{id: "uuid"}];
+        */
+        let categories;
+        if("categories" in product) {
+          categories = product.categories.map(category => {
+            return {"id": category};
+          });
+          delete product.categories;
+        }
+
         try {
             const res = await this.prisma.product.create({
                 data: {
-                    ...product,
+                    ...product as any,
                     authorId: author.id,
-                    
+
                     categories: {
                         connect: [
-                            {
-                                id: "a16c1438-9145-4640-a85f-221bed4c464a"
-                            },
-                            {
-                                id: "4e476036-341d-4491-8d5c-02c1eb699641"
-                            },
-                            
+                          ...categories
                         ]
-                    //   connect: {
-                    //     id: "a16c1438-9145-4640-a85f-221bed4c464a"
-                    //   }
                     }
                 },
             })
             return res;
         } catch (e) {
             if (e.code === "P2002") return { message: "Name is already taken" };
+            return e;
         }
+        return {message: "Something went wrong"};
     }
     async createManyProduct(author: IAuthor, products: IProduct[]) {
         if (!author.id) return { message: "There ain't user!" };
@@ -82,12 +90,30 @@ export class ProductService {
                 return { ...pr, authorId: author.id };
             });
 
-            const res = await this.prisma.product.createMany({
-                data: [...newProducts]
+            const state: any[] = [];
+            newProducts.forEach(async (prod) => { // write map instead and return resuls
+              let categories;
+              if(prod.categories) {
+                categories = MtMParser(prod.categories, "id");
+                delete prod.categories;
+              }
+              try {
+                const res = await this.prisma.product.create({
+                    data: {
+                      ...prod,
+                      categories: {
+                        connect: categories ? [
+                        ...categories as any
+                      ] : undefined}
+                    }
+                });
+                return state.push(res);
+              } catch(e) {
+                return e;
+              }
             });
-            return res;
+            return state;
         } catch (e) {
-            console.log(e);
             if (e.code === "P2002") return { message: "Name is already taken" };
             return { message: "Unknown error", data: e };
         }
@@ -164,7 +190,7 @@ export class ProductService {
                 id
             },
             data: {
-                ...product
+                ...product as any
             }
         });
         return res;

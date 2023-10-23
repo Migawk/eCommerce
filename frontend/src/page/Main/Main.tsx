@@ -159,7 +159,7 @@ export default function Main() {
         <Group name="Top100" link="#" cards={products}/>
         {leaflets[0] ? <Leaflet data={leaflets[0] as any}/> : null}
         <Slider/>
-        {leaflets[1] ? <Leaflet data={leaflets[1] as any}/> : null}x
+        {leaflets[1] ? <Leaflet data={leaflets[1] as any}/> : null}
       </article>
     </main>
   )
