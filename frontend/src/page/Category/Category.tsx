@@ -6,9 +6,18 @@ import { useState, useEffect } from "react";
 import Navigation from "../../components/main/Navigation/Navigation.tsx";
 import ProductElement from "../../components/main/Product/Product.tsx";
 
+import _ from "lodash";
+
+interface ISortParams {
+  colors: string[]
+  size: string[]
+  price: [number, number] // min, max
+}
 export default function Category() {
   const {id} = useParams();
   const [category, setCategory] = useState<"pending" | {status: string, message: string} | ICategory>("pending");
+
+  const [sortParams, setParams] = useState<ISortParams>({});
 
   useEffect(() => {
     fetch("http://localhost:3000/category/"+id)
@@ -17,12 +26,25 @@ export default function Category() {
         if(!res) return setCategory({status: "Bad Request", message: "There isn't any content"});
         if("message" in res) return setCategory({status: "Bad Request", message});
         setCategory(res);
+
+        const sort = res.products.map(product => {
+          return {
+            size: product.size,
+            colors: product.colors,
+            price: product.price
+          }
+        });
+        const min = _.minBy(sort, (o) => o.price).price;
+        const max = _.maxBy(sort, (o) => o.price).price;
+        setParams({
+          colors: Array.from(new Set(sort.map(param => param.colors))).flat(3),
+          size: Array.from(new Set(sort.map(param => param.size))).flat(3),
+          price: [min, max]
+        });
+      }).catch(error => {
+        setCategory({status: "Problem", message: error.toString()});
       });
   }, []);
-
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
 
   if(category === "pending") return <main>
       <h1>Loading...</h1>
@@ -65,9 +87,23 @@ export default function Category() {
             </div>
             <div className={styles.sidebarWrapper}>
               <h4>Color</h4>
+              <div className={styles.sortList}>
+                {
+                  sortParams.colors && sortParams.colors.map((color) => {
+                    return <div key={color} style={{background: color}} className={styles.color}></div>
+                  })
+                }
+              </div>
             </div>
             <div className={styles.sidebarWrapper}>
               <h4>Size</h4>
+              <div className={styles.sortList}>
+                {
+                  sortParams.size && sortParams.size.map((size) => {
+                    return <div key={size} className={styles.size}>{size.split(",")[0]}</div>
+                  })
+                }
+              </div>
             </div>
             <div className={styles.sidebarWrapper}>
               <h4>Most popular</h4>
@@ -78,16 +114,16 @@ export default function Category() {
             <div className={styles.sidebarWrapper}>
               <h4>Price</h4>
               <div>
-                <div>Minimun</div>
-                <div>Maximum</div>
+                <div>{sortParams.price[0]}</div>
+                <div>{sortParams.price[1]}</div>
               </div>
             </div>
             20 products found
           </aside>
-          <div>
+          <div className={styles.categoryProducts}>
           {
             category.products.map(product => {
-              return <ProductElement data={product}/>
+              return <ProductElement key={product.id} data={product}/>
             })
           }
           </div>

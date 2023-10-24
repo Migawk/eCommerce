@@ -28,7 +28,18 @@ export class CategoryService {
             name: true,
             rate: true,
             price: true,
-            discount: true
+            discount: true,
+            description: true,
+            colors: true,
+            photos: true,
+            size: true,
+            countLeft: true,
+            countSold: true,
+            _count: {
+              select: {
+                reviews: true
+              }
+            }
           }
         },
         subCategories: {

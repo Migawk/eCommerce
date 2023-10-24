@@ -1,0 +1,47 @@
+@import ../../../variables
+
+.card
+  display: flex
+  flex-direction: column
+  &Info
+    padding: 20px
+    display: flex
+    flex-direction: column
+    gap: 12px
+
+.info
+  display: flex
+  justify-content: space-between
+  &Left
+    display: flex
+    flex-direction: column
+    gap: 6px
+  &Name
+    font-size: 12px
+    font-weight: 700
+    color: $primary
+  &Description
+    font-size: 10px
+    color: $tritary
+
+.rate
+  display: flex
+  align-items: center
+  gap: 12px
+  color: $secondary
+  font-size: 12px
+
+.price
+  display: flex
+  align-items: center
+  gap: 12px
+  &Actually
+    color: $orange2
+    font-size: 14px
+    font-weight: 700
+  &Discount
+    font-size: 14px
+    color: $tritary
+    &Percents
+      font-size: 12px
+      color: $orange2
