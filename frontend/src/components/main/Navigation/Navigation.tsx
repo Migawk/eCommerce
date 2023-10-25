@@ -6,12 +6,20 @@ interface INav {
     row: { name: string, link: string }[];
 }
 export default function Navigation({ row }: INav) {
-    return <nav className={styles.nav}>
-        {row.map((el, i) => {
-            return <div className={styles.row} key={el.name}>
-            <Link to={el.link}>{el.name}</Link>
-            {i !== row.length-1 ? <img src={arrowRight} className={styles.arrow}/> : null}
-            </div>
-        })}
+
+  const list = row.filter(el => el.name !== undefined );
+
+  return (
+    <nav className={styles.nav}>
+      {list.map((el, i) => {
+         // However it doesnt edits.
+        return (
+          <div className={styles.row} key={i}>
+            <a href={el.link}>{el.name}</a>
+            {i !== list.length-1 ? <img src={arrowRight} className={styles.arrow}/> : null}
+          </div>
+        )
+      })}
     </nav>
+  )
 }

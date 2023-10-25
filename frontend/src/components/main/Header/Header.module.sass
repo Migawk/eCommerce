@@ -41,6 +41,9 @@ nav>ul
             color: $text
             text-decoration: none
             font-size: 14px
+            transition: .5s
+            &:hover
+              color: $primary
 
 .contacts
     display: flex
@@ -135,3 +138,18 @@ nav>ul
       border: none
       background: none
       color: $white
+
+.basket
+  position: relative
+  top: 90px
+  border-radius: 8px
+  padding: 20px 24px
+
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.10)
+  background: $white
+  color: $primary
+
+  &Pos
+    position: absolute
+  &Field
+    height: 100px

@@ -19,9 +19,13 @@
 
 .sidebar
   padding: 36px 32px 36px 64px
-  width: fit-content
+  width: min-content
   &Wrapper
     padding: 28px  24px
+    border-bottom: 1px solid black
+  &Price
+    display: flex
+    justify-content: space-between
 
 .sectionProducts
   display: flex
@@ -41,6 +45,11 @@
 .size
   padding: 6px 10px
   border: 1px solid $secondary
+  background: $white
   border-radius: 5px
   font-size: 14px
   font-weight: 600
+  transition: .5s
+  cursor: pointer
+  &:hover
+    background: $gray2

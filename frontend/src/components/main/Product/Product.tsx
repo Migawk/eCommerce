@@ -2,6 +2,7 @@ import IProduct from "../../../types/products.ts";
 import styles from "./product.module.sass";
 import Heart from "../../../assets/svgElements/HeartSVG.tsx";
 import starA from "../../../assets/svg/starActive.svg";
+import { Link } from "react-router-dom";
 
 import { z } from "zod";
 
@@ -28,11 +29,16 @@ export default function ProductElement({data}: IProductElement) {
   if(!parse.success) return <div>bad</div>;
   return (
     <div className={styles.card}>
-      {data.photos && <img src={"http://localhost:3000/cdn/"+data.photos[0]}/>}
+      {data.photos &&
+        <Link to={"/product/"+data.id} className={styles.image}>
+          <img src={"http://localhost:3000/cdn/"+data.photos[0]}/>
+        </Link>
+      }
       <div className={styles.cardInfo}>
         <div className={styles.info}>
           <div className={styles.infoLeft}>
-            <div className={styles.infoName}>{data.name}</div>
+            <div>
+            <Link className={styles.infoName} to={"/product/"+data.id}>{data.name}</Link></div>
             <div className={styles.infoDescription}>{data.description[0].slice(0, 32)}</div>
           </div>
           <div className={styles.infoRight}>

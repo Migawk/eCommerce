@@ -3,6 +3,9 @@ import styles from "./category.module.sass";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+import starD from "../../assets/svg/star.svg";
+import starA from "../../assets/svg/starActive.svg";
+
 import Navigation from "../../components/main/Navigation/Navigation.tsx";
 import ProductElement from "../../components/main/Product/Product.tsx";
 
@@ -25,6 +28,14 @@ export default function Category() {
       .then(res => {
         if(!res) return setCategory({status: "Bad Request", message: "There isn't any content"});
         if("message" in res) return setCategory({status: "Bad Request", message});
+        if(res.products.length === 0) return setCategory(
+          {
+            products: [],
+            parentCategories: res.parentCategories,
+            subCategories: res.subCategories
+          }
+        );
+
         setCategory(res);
 
         const sort = res.products.map(product => {
@@ -34,11 +45,12 @@ export default function Category() {
             price: product.price
           }
         });
+
         const min = _.minBy(sort, (o) => o.price).price;
         const max = _.maxBy(sort, (o) => o.price).price;
         setParams({
-          colors: Array.from(new Set(sort.map(param => param.colors))).flat(3),
-          size: Array.from(new Set(sort.map(param => param.size))).flat(3),
+          colors: Array.from(new Set(sort.map(param => param.colors).flat(3))),
+          size: Array.from(new Set(sort.map(param => param.size).flat(3))),
           price: [min, max]
         });
       }).catch(error => {
@@ -46,13 +58,13 @@ export default function Category() {
       });
   }, []);
 
-  if(category === "pending") return <main>
+  if(category === "pending") return (<main>
       <h1>Loading...</h1>
-    </main>;
-  if(typeof category !== "string" && "message" in category) return <div className={styles.message}>
+    </main>);
+  if(typeof category !== "string" && "message" in category) return (<div className={styles.message}>
       <h1>{category.status}</h1>
       <h2>{category.message}</h2>
-    </div>;
+    </div>);
 
   return (
     <main>
@@ -66,7 +78,7 @@ export default function Category() {
             ]
           }/>
         </section>
-        <section className={styles.categoryInfo}>
+        { category.products.length ? <><section className={styles.categoryInfo}>
           <div className={styles.categoryInfoDetails}>
             <h2>
               {category.name}
@@ -100,7 +112,8 @@ export default function Category() {
               <div className={styles.sortList}>
                 {
                   sortParams.size && sortParams.size.map((size) => {
-                    return <div key={size} className={styles.size}>{size.split(",")[0]}</div>
+                    const [quant, isAviable] = size.split(",");
+                    return <button key={quant} className={styles.size}>{quant}</button>
                   })
                 }
               </div>
@@ -108,14 +121,48 @@ export default function Category() {
             <div className={styles.sidebarWrapper}>
               <h4>Most popular</h4>
               <div>
-              1 2 3 4 5
+                <div>
+                  <img src={starA}/>
+                  <img src={starA}/>
+                  <img src={starA}/>
+                  <img src={starA}/>
+                  <img src={starA}/>
+                </div>
+                <div>
+                  <img src={starA}/>
+                  <img src={starA}/>
+                  <img src={starA}/>
+                  <img src={starA}/>
+                  <img src={starD}/>
+                </div>
+                <div>
+                  <img src={starA}/>
+                  <img src={starA}/>
+                  <img src={starA}/>
+                  <img src={starD}/>
+                  <img src={starD}/>
+                </div>
+                <div>
+                  <img src={starA}/>
+                  <img src={starA}/>
+                  <img src={starD}/>
+                  <img src={starD}/>
+                  <img src={starD}/>
+                </div>
+                <div>
+                  <img src={starA}/>
+                  <img src={starD}/>
+                  <img src={starD}/>
+                  <img src={starD}/>
+                  <img src={starD}/>
+                </div>
               </div>
             </div>
             <div className={styles.sidebarWrapper}>
               <h4>Price</h4>
-              <div>
-                <div>{sortParams.price[0]}</div>
-                <div>{sortParams.price[1]}</div>
+              <div className={styles.sidebarPrice}>
+                <div>Minimum {sortParams.price[0]}</div>
+                <div>Maximum {sortParams.price[1]}</div>
               </div>
             </div>
             20 products found
@@ -127,7 +174,7 @@ export default function Category() {
             })
           }
           </div>
-        </section>
+        </section></> : <div>It's an empty list</div>}
       </article>
     </main>
   );

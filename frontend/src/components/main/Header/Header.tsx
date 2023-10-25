@@ -10,11 +10,29 @@ import categories from "../../../assets/svg/categories.svg"
 import manCosm from "../../../assets/png/man-cosm.png"
 
 import styles from "./Header.module.sass"
+
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useItems } from "../../../store/main.ts";
 
 export default function Header() {
+  const [isShowBasket, setShowBasket] = useState<boolean>(false);
+  const store = useItems(state => state.items);
+  
+  const add = useItems(state => state.addItem);
+  const remove = useItems(state => state.removeItem);
+
+  const sub = useItems.subscribe(console.log);
+
     return (
         <header className={styles.header}>
+        <button onClick={() => add(Math.round(Math.random()*100))}>Add</button>
+        <button onClick={() => remove(0)}>Remove first</button>
+            {
+              store.map(el => {
+                return <div key={el}>{el}</div>;
+              })
+            }
             <div className={styles.top}>
                 <Link className={styles.logo} to="/">
                     <div className="ico"><img src={logo} /></div>
@@ -46,7 +64,7 @@ export default function Header() {
             <div className={styles.bottom}>
                 <div className={styles.bottomLeft}>
                     <button className={styles.categories}>
-                        <img src={categories} alt="" />
+                        <img src={categories} />
                         <span>Categories</span>
                     </button>
                     <div className={styles.selects}>
@@ -80,10 +98,23 @@ export default function Header() {
                         <img src={heart} />
                         <span>Favorite</span>
                     </button>
-                    <button>
+                    <button
+                      onMouseEnter={(e) => setShowBasket(true)}
+                      onMouseLeave={(e) => setShowBasket(false)}
+                    >
                         <img src={card} />
                         <span>Card</span>
                         <div className={styles.countOrders}>3</div>
+                        {
+                          isShowBasket ? <div className={styles.basketPos}>
+                          <div className={styles.basketField}>
+                            <div className={styles.basket}>
+                            "List"
+                            <div>Total: <b>$137.09</b></div>
+                            </div>
+                          </div>
+                          </div> : null
+                        }
                     </button>
                 </div>
             </div>

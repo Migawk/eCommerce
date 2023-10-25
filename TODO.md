@@ -14,6 +14,7 @@
 
 ## Add
 [ ] Add Zustand/Redux for Basket, User, maybe some extra-stuff.
+[ ] Maybe start to use React-Query
 
 ## Styles
 [ ] Add more animations, activities for user.

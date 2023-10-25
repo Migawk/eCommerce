@@ -118,12 +118,12 @@ export default function ProductPage() {
                             <div className={styles.sizeFields}>
                                 {product.size.map(size => {
                                     const handled = size.split(", ") as [string, string];
-                                    const isAviable: boolean = handled[1] === "AVIABLE";
+                                    const isAvailable: boolean = handled[1] === "AVAILABLE";
 
                                     return <button
                                         key={size}
-                                        disabled={!isAviable}
-                                        className={isAviable ? styles.sizeAviable : styles.sizeDisabled}
+                                        disabled={!isAvailable}
+                                        className={isAvailable ? styles.sizeAviable : styles.sizeDisabled}
                                     >{handled[0]}</button>;
                                 })}
                             </div>
@@ -133,7 +133,7 @@ export default function ProductPage() {
                             <div className={styles.colorFields}>
                                 {product.colors.map(color => {
                                     return (
-                                        <div style={{ background: color }}>
+                                        <div style={{ background: color }} key={color}>
                                         </div>
                                     )
                                 })}
