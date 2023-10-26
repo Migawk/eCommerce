@@ -12,16 +12,16 @@ export default function Reviews({ reviews }: { reviews: IReview[] }) {
                 <div className={styles.reviewHeader}>
                     <div><b>Total review rate</b></div>
                     <div className={styles.reviewHeaderInfo}>
-                        <p>Average rating ({reviews.length} reviews & 125 rating)</p>
+                        <p>Average rating ({reviews.length} reviews & 000 rating)</p>
                     </div>
                     <Button style="gray">Write a customer review</Button>
                 </div>
                 <div className={styles.reviewStatistics}>
-                    <StatisticBar name="5 Stars" bit={86} wholeNumber={120} />
-                    <StatisticBar name="4 Stars" bit={20} wholeNumber={120} />
-                    <StatisticBar name="3 Stars" bit={10} wholeNumber={120} />
-                    <StatisticBar name="2 Stars" bit={1} wholeNumber={120} />
-                    <StatisticBar name="1 Stars" bit={3} wholeNumber={120} />
+                    <StatisticBar name="5 Stars" bit={reviews.filter(e => e.rate == 5).length} wholeNumber={reviews.length} />
+                    <StatisticBar name="4 Stars" bit={reviews.filter(e => e.rate == 4).length} wholeNumber={reviews.length} />
+                    <StatisticBar name="3 Stars" bit={reviews.filter(e => e.rate == 3).length} wholeNumber={reviews.length} />
+                    <StatisticBar name="2 Stars" bit={reviews.filter(e => e.rate == 2).length} wholeNumber={reviews.length} />
+                    <StatisticBar name="1 Stars" bit={reviews.filter(e => e.rate == 1).length} wholeNumber={reviews.length} />
                 </div>
             </div>
             <div>
@@ -30,11 +30,16 @@ export default function Reviews({ reviews }: { reviews: IReview[] }) {
                         return <div key={review.user.id} className={styles.review}>
                             <div className={styles.reviewTop}>
                                 <div className={styles.reviewRate}>
-                                    <img src={starActive} />
-                                    <img src={starActive} />
-                                    <img src={starActive} />
-                                    <img src={starActive} />
-                                    <img src={star} />
+                                    {
+                                      Array.from({length: review.rate}, (val, index) => {
+                                        return <img key={index} src={starActive} />
+                                      })
+                                    }
+                                    {
+                                      Array.from({length: 5-review.rate}, (val, index) => {
+                                        return <img key={index} src={star} />
+                                      })
+                                    }
                                 </div>
                                 <div className={styles.reviewFieldName}>By {review.user.name}</div>
                             </div>

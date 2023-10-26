@@ -33,13 +33,54 @@
 
 .blogs
   padding: 0 90px
+  display: flex
+  flex-direction: column
+  gap: 60px
 .blog
   &Wrapper
     &First
       display: grid
       grid-template-columns: 1fr 1fr 1fr
       gap: 20px
+  &Asider
+    grid-column-start: 4
+    grid-column-end: 5
+    grid-row-start: 1
+    grid-row-end: 5
 
+    background: #9DB8C9
+    color: $white
+
+    max-width: 296px
+
+
+  &Quote
+    padding: 18px 12px
+    display: flex
+    flex-direction: column
+    gap: 16px
+    border-bottom: 1px solid white
+
+    &Author
+      display: flex
+      gap: 12px
+      &Avatar
+        border-radius: 50%
+      &Status
+        &>*:first-child
+          font-size: 14px
+        &>*:nth-child(2)
+          font-size: 12px
+    &:last-child
+      border-bottom: 0
+  &HeadTopic
+    color: $primary
+    &>*
+      padding-left: 28px
+      &:first-child
+        border-left: 5px solid $blue
+        margin-bottom: 28px
+        padding-left: calc(28px - 5px)
 .Wrapper
   &Big
     grid-column-start: 1
@@ -66,6 +107,8 @@
     grid-column-end: 4
     grid-row-start: 1
     grid-row-end: 3
+  &News
+    box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.06)
 
 .news
   padding: 0 8px
@@ -87,7 +130,7 @@
     display: flex
     align-items: center
     gap: 12px
-  
+
     font-size: 12px
     color: $tritary
   &Comments
@@ -97,6 +140,18 @@
   &Image
     width: 100%
     height: auto
+
+.gallery
+  display: grid
+  gap: 20px
+  &Greatest
+    grid-column-start: 1
+    grid-column-end: 8
+    grid-row-start: 1
+    grid-row-end: 6
+  &Small
+    grid-column-start: 8
+    grid-column-end: 9
 
 .button
   background: none

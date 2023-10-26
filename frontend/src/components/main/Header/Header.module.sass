@@ -142,6 +142,7 @@ nav>ul
 .basket
   position: relative
   top: 90px
+  left: -186px
   border-radius: 8px
   padding: 20px 24px
 
@@ -153,3 +154,41 @@ nav>ul
     position: absolute
   &Field
     height: 100px
+
+  &Element
+    width: 224px
+    display: flex
+    padding: 16px 0
+    gap: 24px
+    border-bottom: 1px solid black
+    font-size: 14px
+    &Text
+      display: flex
+      flex-direction: column
+      justify-content: space-between
+      gap: 8px
+
+    &Image
+      width: 38px
+      height: 54px
+      color: $primary
+
+    &Title
+      color: $primary
+      font-weight: 700
+      &:after
+        display: block
+        position: relative
+        content: ""
+        width: 0
+        height: 2px
+        background: $primary
+        transition: .5s
+      &:hover::after
+        width: 100%
+
+    &Price
+      color: $tritary
+
+    &:last-child
+      border-bottom: 0

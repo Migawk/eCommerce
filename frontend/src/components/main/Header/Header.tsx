@@ -17,22 +17,11 @@ import { useItems } from "../../../store/main.ts";
 
 export default function Header() {
   const [isShowBasket, setShowBasket] = useState<boolean>(false);
-  const store = useItems(state => state.items);
-  
-  const add = useItems(state => state.addItem);
+  const itemList = useItems(state => state.items);
   const remove = useItems(state => state.removeItem);
-
-  const sub = useItems.subscribe(console.log);
 
     return (
         <header className={styles.header}>
-        <button onClick={() => add(Math.round(Math.random()*100))}>Add</button>
-        <button onClick={() => remove(0)}>Remove first</button>
-            {
-              store.map(el => {
-                return <div key={el}>{el}</div>;
-              })
-            }
             <div className={styles.top}>
                 <Link className={styles.logo} to="/">
                     <div className="ico"><img src={logo} /></div>
@@ -104,12 +93,39 @@ export default function Header() {
                     >
                         <img src={card} />
                         <span>Card</span>
-                        <div className={styles.countOrders}>3</div>
+                        <div className={styles.countOrders}>{itemList.length}</div>
                         {
                           isShowBasket ? <div className={styles.basketPos}>
                           <div className={styles.basketField}>
                             <div className={styles.basket}>
-                            "List"
+                            <div>
+                              {
+                                itemList.map(item => {
+                                  return (
+                                    <div
+                                      key={item.id}
+                                      className={styles.basketElement}>
+                                      <Link to={"/products/"+item.id}>
+                                        <img
+                                          src=""
+                                          alt="image"
+                                          className={styles.basketElementImage}/>
+                                      </Link>
+                                      <div className={styles.basketElementText}>
+                                        <Link
+                                          to={"/products/"+item.id}
+                                          className={styles.basketElementTitle}>
+                                          {item.name}
+                                        </Link>
+                                        <div className={styles.basketElementPrice}>
+                                          ${item.price}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )
+                                })
+                              }
+                            </div>
                             <div>Total: <b>$137.09</b></div>
                             </div>
                           </div>

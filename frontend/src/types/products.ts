@@ -26,7 +26,7 @@ export interface IReview {
         name: string
         id: string
     }
-    rate: "UP" | "DOWN"
+    rate: number
     adventages: string
     disadventages: string
     description: string
