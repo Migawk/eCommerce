@@ -10,11 +10,11 @@
 [ ] Customers page.
 [ ] Categories page with products sorting.
 [ ] Basket page.
-[ ] Finish blogs.
+[X] Finish blogs.
 
 ## Add
 [ ] Add Zustand/Redux for Basket, User, maybe some extra-stuff.
-[ ] Maybe start to use React-Query
+[ ] Maybe start to use React-Query.
 
 ## Styles
 [ ] Add more animations, activities for user.

@@ -2,6 +2,8 @@ import styles from "./product.module.sass";
 
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { useItems } from "../../store/main.ts";
 
 import Navigation from "../../components/main/Navigation/Navigation";
 import Details from "./chapters/Details";
@@ -12,7 +14,6 @@ import Quantity from "../../components/main/Quantity/Quantity";
 import Button from "../../components/main/Button/Button";
 import heart from "../../assets/svg/heartFilled.svg";
 
-import { createPortal } from "react-dom";
 import Reviews from "./chapters/Review";
 import Shipping from "./chapters/Shipping";
 
@@ -25,6 +26,10 @@ export default function ProductPage() {
     const [choosed, setChoosed] = useState<number>(0);
     const [chapter, setChapter] = useState<"details" | "reviews" | "shipping">("details");
     const [isModal, setModal] = useState<boolean>(false);
+    const [quantity, setQuantity] = useState<number>(1);
+
+    const add = useItems((state) => state.addItem);
+    const list = useItems((state) => state.items);
 
     useEffect(() => {
         if (product) return;
@@ -51,7 +56,6 @@ export default function ProductPage() {
                 }
             });
     }, []);
-
     if (!product) return <h1>Loading...</h1>;
     if (!id || product === 404) return <Err404 />;
     if (photos.length < product.photos.length) return <h1>Loading..</h1>;
@@ -145,7 +149,7 @@ export default function ProductPage() {
                         <div className={styles.quantity}>
                             <div className={styles.quantityText}>Quantity</div>
                             <div className={styles.quantityFields}>
-                                <Quantity name="count" min={1} max={product.countLeft} />
+                                <Quantity name="count" min={1} max={product.countLeft} onChange={setQuantity}/>
                                 <span>{product.countLeft} available / {product.countSold} sold</span>
                             </div>
                         </div>
@@ -165,8 +169,17 @@ export default function ProductPage() {
                         </div>
                     </div>
                     <div className={styles.buttons}>
-                        <Button><div onClick={() => setChapter("shipping")}>Shop Now</div></Button>
-                        <Button style="gray">Add to Basket</Button>
+                        <Button><div onClick={() => {
+                          setChapter("shipping");
+                          setTimeout(() => {
+                            const elem = document.getElementById("shippingElement").scrollIntoView();
+                          }, 250); // It works only if you touch text
+                        }}>Shop Now</div></Button>
+                        <Button style="gray">
+                        <div onClick={() => {
+                          add({...product, quantity});
+                        }}>Add to Basket</div>
+                        </Button>
                     </div>
                 </section>
             </article>

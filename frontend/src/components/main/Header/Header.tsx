@@ -1,15 +1,16 @@
 import logo from "../../../assets/png/Logo.png";
-import instagram from "../../../assets/svg/instagram.svg"
-import telegram from "../../../assets/svg/telegram.svg"
-import facebook from "../../../assets/svg/facebook.svg"
-import glass from "../../../assets/svg/glass.svg"
-import user from "../../../assets/svg/user.svg"
-import heart from "../../../assets/svg/heart.svg"
-import card from "../../../assets/svg/card.svg"
-import categories from "../../../assets/svg/categories.svg"
-import manCosm from "../../../assets/png/man-cosm.png"
+import instagram from "../../../assets/svg/instagram.svg";
+import telegram from "../../../assets/svg/telegram.svg";
+import facebook from "../../../assets/svg/facebook.svg";
+import glass from "../../../assets/svg/glass.svg";
+import user from "../../../assets/svg/user.svg";
+import heart from "../../../assets/svg/heart.svg";
+import card from "../../../assets/svg/card.svg";
+import categories from "../../../assets/svg/categories.svg";
+import manCosm from "../../../assets/png/man-cosm.png";
 
-import styles from "./Header.module.sass"
+import styles from "./Header.module.sass";
+import _ from "lodash";
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -101,6 +102,7 @@ export default function Header() {
                             <div>
                               {
                                 itemList.map(item => {
+                                  console.log(item);
                                   return (
                                     <div
                                       key={item.id}
@@ -118,7 +120,10 @@ export default function Header() {
                                           {item.name}
                                         </Link>
                                         <div className={styles.basketElementPrice}>
-                                          ${item.price}
+                                          <span>
+                                            ${item.price*item.quantity}
+                                            <span className={styles.basketElementPriceQuantity}>(x{item.quantity})</span>
+                                          </span>
                                         </div>
                                       </div>
                                     </div>
@@ -126,7 +131,7 @@ export default function Header() {
                                 })
                               }
                             </div>
-                            <div>Total: <b>$137.09</b></div>
+                            <div>Total: <b>${_.sumBy(itemList, (prod) => prod.price*prod.quantity).toFixed(2)}</b></div>
                             </div>
                           </div>
                           </div> : null

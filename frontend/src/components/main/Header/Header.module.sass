@@ -165,8 +165,9 @@ nav>ul
     &Text
       display: flex
       flex-direction: column
-      justify-content: space-between
       gap: 8px
+      &>*
+        width: fit-content
 
     &Image
       width: 38px
@@ -189,6 +190,10 @@ nav>ul
 
     &Price
       color: $tritary
+      &Quantity
+        margin-left: 4px
+        font-size: 10px
+        color: $primary
 
     &:last-child
       border-bottom: 0

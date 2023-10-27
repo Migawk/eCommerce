@@ -261,23 +261,33 @@
 
 .shipping
     &Table
-        &>tr>td, th
-            text-align: left
-            width: 165px
-            font-size: 14px
+      &>tr>td, th
+        text-align: left
+        width: 165px
+        font-size: 14px
+      &Center
+        display: flex
+        align-items: center
+        justify-content: center
+      
+    &Title
+      font-size: 16px
+      font-weight: 700
+      margin-bottom: 12px
+    &Text
+      font-size: 14px
+      color: $text
+    &Selection
+      display: flex
+      gap: 24px
+      margin-top: 24px
+      margin-bottom: 32px
     &Payment
         display: flex
         flex-direction: column
         gap: 32px
 
         font-size: 14px
-        &Info
-            display: flex
-            flex-direction: column
-            gap: 12px
-            &Title
-                font-size: 16px
-                font-weight: 700
         &Method
             display: flex
             gap: 40px

@@ -5,17 +5,20 @@ interface IQuantity {
     min?: number;
     max: number;
     name: string;
+    onChange?: any;
 }
 
-export default function Quantity({ min = 0, max, name }: IQuantity) {
+export default function Quantity({ min = 0, max, name, onChange }: IQuantity) {
     const [value, setValue] = useState<number>(1);
 
     function increase() {
         if (value + 1 > max) return;
+        onChange ? onChange(value+1) : null;
         setValue(pr => ++pr);
     }
     function decrease() {
         if (value - 1 < min) return;
+        onChange ? onChange(value-1) : null;
         setValue(pr => --pr);
     }
     return (
