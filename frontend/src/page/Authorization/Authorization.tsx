@@ -1,12 +1,20 @@
 import styles from "./auth.module.sass";
+
 import Input from "../../components/main/Input/Input";
 import Button from "../../components/main/Button/Button";
+
+import google from "../../assets/png/Google.png";
+import warning from "../../assets/svg/warning.svg";
+import arrowLeft from "../../assets/svg/longArrowLeft.svg";
 
 export default function Authorization() {
   return (
     <main className={styles.main}>
       <nav className={styles.nav}>
-        <a href="/">Back to the website</a>
+        <a href="/">
+        <img src={arrowLeft}/>
+        Back to the website
+        </a>
       </nav>
       <article className={styles.typeField}>
       <div className={styles.box}>
@@ -28,7 +36,7 @@ export default function Authorization() {
             label="Password"/>
           <div className={styles.fieldsBottom}>
             <div>
-              <label>
+              <label className={styles.label}>
                 <input type="checkbox"/>
                 <span>Remember for 30 days</span>
               </label>
@@ -40,10 +48,13 @@ export default function Authorization() {
             <div className={styles.buttonsDivider}>
               <div className={styles.buttonsDividerElement}>OR</div>
             </div>
-            <Button style="dark">sign in by google</Button>
+            <Button style="dark">
+              <img src={google}/>
+              <span>sign in by google</span>
+            </Button>
           </div>
           <div className={styles.message}>
-            Sign up to  save $9 for free shipping with Ausff company through australlian territory
+            <img src={warning}/>Sign up to  save $9 for free shipping with Ausff company through australlian territory
           </div>
         </form>
       </div>
@@ -72,7 +83,7 @@ export default function Authorization() {
             label="Password"/>
           <div className={styles.fieldsBottom}>
             <div>
-              <label>
+              <label className={styles.label}>
                 <input type="checkbox"/>
                 <span>
                   Terms and conditions agreement should start with an introduction
@@ -86,7 +97,10 @@ export default function Authorization() {
             <div className={styles.buttonsDivider}>
               <div className={styles.buttonsDividerElement}>OR</div>
             </div>
-            <Button style="dark">sign up by google</Button>
+            <Button style="dark">
+              <img src={google}/>
+              sign up by google
+            </Button>
           </div>
         </form>
       </div>

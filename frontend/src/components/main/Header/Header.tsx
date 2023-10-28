@@ -80,15 +80,16 @@ export default function Header() {
                     </div>
                 </div>
                 <div className={styles.bottomRight}>
-                    <button>
+                      <Link to="/authorization">
                         <img src={user} />
-                        <span>Sign in</span>
-                    </button>
-                    <button>
+                        Sign in
+                      </Link>
+                    <Link to="/favorite">
                         <img src={heart} />
                         <span>Favorite</span>
-                    </button>
-                    <button
+                    </Link>
+                    <Link
+                      to="/basket"
                       onMouseEnter={(e) => setShowBasket(true)}
                       onMouseLeave={(e) => setShowBasket(false)}
                     >
@@ -136,7 +137,7 @@ export default function Header() {
                           </div>
                           </div> : null
                         }
-                    </button>
+                    </Link>
                 </div>
             </div>
         </header>

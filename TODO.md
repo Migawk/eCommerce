@@ -13,12 +13,13 @@
 [X] Finish blogs.
 
 ## Add
-[ ] Add Zustand/Redux for Basket, User, maybe some extra-stuff.
+[ ] Add **Zustand**/Redux for Basket, User, maybe some extra-stuff.
 [ ] Maybe start to use React-Query.
 
 ## Styles
 [ ] Add more animations, activities for user.
 [ ] Add adaptive for phones/tablets/small screens.
+[ ] Transform some SVG to Components for make them more flexibility.
 
 ## Tests, styles
 [ ] Add tests.

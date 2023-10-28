@@ -6,6 +6,7 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+
   display: flex;
   gap: 6px;
   justify-content: center;
@@ -13,6 +14,9 @@
 
 .buttonText {
   z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .sky {

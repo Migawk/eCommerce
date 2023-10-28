@@ -5,16 +5,24 @@ import { useState, useEffect } from "react";
 
 import starD from "../../assets/svg/star.svg";
 import starA from "../../assets/svg/starActive.svg";
+import check from "../../assets/svg/check.svg";
 
 import Navigation from "../../components/main/Navigation/Navigation.tsx";
 import ProductElement from "../../components/main/Product/Product.tsx";
+import categories from "../../assets/svg/categoriesDots.svg";
 
 import _ from "lodash";
 
 interface ISortParams {
-  colors: string[]
-  size: string[]
+  colors: {color: string, selected: boolean}[]
+  size: {size: string, selected: boolean}[]
+  popularity: {stars: number, selected: boolean}[]
   price: [number, number] // min, max
+}
+interface ISorting {
+  colors: {color: string, selected: boolean}[]
+  size: {size: string, selected: boolean}[]
+  popular: {stars: number, selected: boolean}[]
 }
 export default function Category() {
   const {id} = useParams();
@@ -49,14 +57,21 @@ export default function Category() {
         const min = _.minBy(sort, (o) => o.price).price;
         const max = _.maxBy(sort, (o) => o.price).price;
         setParams({
-          colors: Array.from(new Set(sort.map(param => param.colors).flat(3))),
-          size: Array.from(new Set(sort.map(param => param.size).flat(3))),
+          colors: _.uniqBy(sort.map(param => {return {color: param.colors[0], selected: false}}), 'color'),
+          size: _.uniqBy(sort.map(param => {return {size: param.size[0], selected: false}}), 'size'),
+          popularity: [
+            {stars: 5, selected: false},
+            {stars: 4, selected: false},
+            {stars: 3, selected: false},
+            {stars: 2, selected: false},
+            {stars: 1, selected: false},
+          ],
           price: [min, max]
         });
       }).catch(error => {
         setCategory({status: "Problem", message: error.toString()});
       });
-  }, []);
+  }, [id]);
 
   if(category === "pending") return (<main>
       <h1>Loading...</h1>
@@ -89,7 +104,7 @@ export default function Category() {
         { category.subCategories && <section className={styles.categorySubcategories}>
           {
             category.subCategories.map(cat => {
-              return <a href={"/category/"+cat.id} key={cat.id}>{cat.name}</a>
+              return <Link to={"/category/"+cat.id} key={cat.id}>{cat.name}</Link>
             })
           }
           </section>}
@@ -108,7 +123,10 @@ export default function Category() {
         <section className={styles.sectionProducts}>
           <aside className={styles.sidebar}>
             <div className={styles.sidebarWrapper}>
-              <button>All Categories</button>
+              <button className={styles.categoriesButton}>
+                <img src={categories}/>
+                <span>All Categories</span>
+              </button>
               <h4>Brand</h4>
               <input type="text" placeholder="search"/>
             </div>
@@ -116,8 +134,20 @@ export default function Category() {
               <h4>Color</h4>
               <div className={styles.sortList}>
                 {
-                  sortParams.colors && sortParams.colors.map((color) => {
-                    return <div key={color} style={{background: color}} className={styles.color}></div>
+                  sortParams.colors && sortParams.colors?.map((color) => {
+                    return <div
+                      key={color.color}
+                      style={{background: color.color}}
+                      className={styles.color}
+                      onClick={() => {
+                        setParams((pr) => {
+                          const index = [...pr.colors].indexOf(color);
+                          const colors = [...pr.colors];
+                          colors[index] = {color: color.color, selected: ![...pr.colors][index].selected};
+                          return {...pr, colors}
+                        })
+                      }}>
+                      {color.selected && <img src={check}/>}</div>
                   })
                 }
               </div>
@@ -127,7 +157,7 @@ export default function Category() {
               <div className={styles.sortList}>
                 {
                   sortParams.size && sortParams.size.map((size) => {
-                    const [quant, isAviable] = size.split(",");
+                    const [quant, isAviable] = size.size.split(",");
                     return <button key={quant} className={styles.size}>{quant}</button>
                   })
                 }
