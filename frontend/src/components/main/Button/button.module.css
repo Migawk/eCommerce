@@ -67,4 +67,18 @@
   padding: 6px;
 }
 
+.dark {
+  background: #434343;
+  color: $white;
+}
+.dark:hover {
+  background: #505050;
+}
+.dark:disabled {
+  background: #d0d0d0;
+}
+.dark:disabled:hover {
+  background: #c0c0c0;
+}
+
 /*# sourceMappingURL=button.module.css.map */

@@ -1,4 +1,5 @@
 import Button from "../../../components/main/Button/Button";
+import Rate from "../../../components/main/Rate/Rate";
 import { IReview } from "../../../types/products";
 import styles from "../product.module.sass";
 import star from "../../../assets/svg/star.svg";
@@ -30,16 +31,7 @@ export default function Reviews({ reviews }: { reviews: IReview[] }) {
                         return <div key={review.user.id} className={styles.review}>
                             <div className={styles.reviewTop}>
                                 <div className={styles.reviewRate}>
-                                    {
-                                      Array.from({length: review.rate}, (val, index) => {
-                                        return <img key={index} src={starActive} />
-                                      })
-                                    }
-                                    {
-                                      Array.from({length: 5-review.rate}, (val, index) => {
-                                        return <img key={index} src={star} />
-                                      })
-                                    }
+                                  <Rate stars={review.rate}/>
                                 </div>
                                 <div className={styles.reviewFieldName}>By {review.user.name}</div>
                             </div>

@@ -1,9 +1,13 @@
+@import ../../../variables.sass
 .input
   display: flex
   background: #fff
   border-radius: 4px
-  width: 60%
-
+  width: 100%
+  &>label
+    width: 100%
+    &>p
+      margin-bottom: 4px
 .field
   width: 100%
   border: none
@@ -20,3 +24,12 @@
   display: flex
   align-items: center
   justify-content: center
+
+.star
+  color: #D22600
+
+.border
+  border: 1px solid $stroke
+  border-radius: 4px
+  &:hover
+    border: 1px solid $primary

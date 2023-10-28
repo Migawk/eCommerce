@@ -3,6 +3,7 @@ import styles from "./product.module.sass";
 import Heart from "../../../assets/svgElements/HeartSVG.tsx";
 import starA from "../../../assets/svg/starActive.svg";
 import { Link } from "react-router-dom";
+import Rate from "../Rate/Rate.tsx";
 
 import { z } from "zod";
 
@@ -21,6 +22,7 @@ export default function ProductElement({data}: IProductElement) {
     description: z.array(z.string()),
     photos: z.array(z.string()),
     size: z.array(z.string()),
+    rate: z.number(),
     _count: z.object({
       reviews: z.number()
     })
@@ -47,11 +49,7 @@ export default function ProductElement({data}: IProductElement) {
         </div>
         <div className={styles.rate}>
           <div>
-            <img src={starA} />
-            <img src={starA} />
-            <img src={starA} />
-            <img src={starA} />
-            <img src={starA} />
+            <Rate stars={data.rate}/>
           </div>
           <div>
             ({data._count.reviews})

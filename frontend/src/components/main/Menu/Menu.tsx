@@ -41,9 +41,12 @@ export default function ProductNavigation() {
           <ul className={styles.list}>
             {choosed.num > 0 ? <SubCategory left={choosed.left}/> : null}
             <li id="category 1">
-          	  <button className={styles.element} id="category 1">
+          	  <a
+                className={styles.element}
+                id="category 1"
+                href='/category/cebcb66f-94a9-47f7-80e6-39ffc7ee1bdd'>
                 Woman
-              </button>
+              </a>
             </li>
             <li id="category 2">
               <button className={styles.element}>

@@ -1,0 +1,65 @@
+@import ../../variables
+
+.main
+  padding: 20px 90px 0 90px
+.nav
+  display: flex
+  justify-content: flex-end
+.typeField
+  display: flex
+  justify-content: center
+  &>.box:first-child
+    border-right: 1px solid $stroke
+.box
+  width: 100%
+  padding: 24px
+
+.title
+  margin-bottom: 36px
+.fields
+  display: flex
+  flex-direction: column
+  gap: 28px
+
+  &Bottom
+    display: flex
+    justify-content: space-between
+
+.forgotPassword
+  text-decoration: underline
+
+.buttons
+  display: flex
+  flex-direction: column
+  gap: 12px
+  width: 100%
+
+.buttonsDivider
+  position: relative
+  display: flex
+  justify-content: center
+  &Element
+    color: $stroke
+  &::before
+    content: ""
+    display: block
+    position: relative
+    left: -12px
+    top: 9px
+    width: 45%
+    height: 2px
+    background: $stroke
+  &::after
+    content: ""
+    display: block
+    position: relative
+    left: 12px
+    top: 9px
+    width: 45%
+    height: 2px
+    background: $stroke
+
+.message
+  color: $orange2
+  font-size: 14px
+  font-weight: 600

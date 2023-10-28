@@ -1,6 +1,6 @@
 import styles from "./category.module.sass";
 
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import starD from "../../assets/svg/star.svg";
@@ -66,18 +66,33 @@ export default function Category() {
       <h2>{category.message}</h2>
     </div>);
 
+  let row = [
+    {name: "Homepage", link: "/"},
+    null,
+    {name: category.name, link: "/category/"+category.id},
+  ];
+
+  if(category.parentCategories[0]) {
+    row[1] = {name: category.parentCategories[0].name, link: "/category/"+category.parentCategories[0].id};
+  } else {
+    row = row.filter(e => e !== null);
+  }
+
   return (
     <main>
       <article>
         <section>
           <Navigation row={
-            [
-              {name: "Homepage", link: "/"},
-              {name: category.parentCategories[0].name, link: "/category/"+category.parentCategories[0].id},
-              {name: category.name, link: "/category/"+category.id},
-            ]
+            row
           }/>
         </section>
+        { category.subCategories && <section className={styles.categorySubcategories}>
+          {
+            category.subCategories.map(cat => {
+              return <a href={"/category/"+cat.id} key={cat.id}>{cat.name}</a>
+            })
+          }
+          </section>}
         { category.products.length ? <><section className={styles.categoryInfo}>
           <div className={styles.categoryInfoDetails}>
             <h2>

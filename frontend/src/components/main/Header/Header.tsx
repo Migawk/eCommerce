@@ -115,7 +115,7 @@ export default function Header() {
                                       </Link>
                                       <div className={styles.basketElementText}>
                                         <Link
-                                          to={"/products/"+item.id}
+                                          to={"/product/"+item.id}
                                           className={styles.basketElementTitle}>
                                           {item.name}
                                         </Link>
