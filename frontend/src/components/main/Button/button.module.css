@@ -10,6 +10,11 @@
   display: flex;
   gap: 6px;
   justify-content: center;
+
+  transition: .5s;
+}
+.button:hover {
+  background: #2152FC;
 }
 
 .buttonText {

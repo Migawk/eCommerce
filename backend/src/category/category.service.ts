@@ -13,6 +13,7 @@ type TParsedCategory = [{id: string}];
 export class CategoryService {
   constructor(private prisma: PrismaService) {}
   category = this.prisma.category;
+
   getCategory(id: string) {
     return this.category.findUnique({
       where: {
@@ -45,7 +46,14 @@ export class CategoryService {
         subCategories: {
           select: {
             id: true,
-            name: true
+            name: true,
+            products: {
+              take: 1,
+              select: {
+                id: true,
+                photos: true
+              }
+            }
           }
         },
         parentCategories: {

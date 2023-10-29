@@ -15,11 +15,13 @@ import _ from "lodash";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useItems } from "../../../store/main.ts";
+import { useUser } from "../../../store/user.ts";
 
 export default function Header() {
   const [isShowBasket, setShowBasket] = useState<boolean>(false);
   const itemList = useItems(state => state.items);
   const remove = useItems(state => state.removeItem);
+  const userState = useUser(state => state.user);
 
     return (
         <header className={styles.header}>
@@ -80,9 +82,9 @@ export default function Header() {
                     </div>
                 </div>
                 <div className={styles.bottomRight}>
-                      <Link to="/authorization">
+                      <Link to={userState === null ? "/authorization" : "/customer"}>
                         <img src={user} />
-                        Sign in
+                        {userState === null ? "Sign in" : userState.name}
                       </Link>
                     <Link to="/favorite">
                         <img src={heart} />

@@ -108,7 +108,14 @@ export default function Category() {
         { category.subCategories && <section className={styles.categorySubcategories}>
           {
             category.subCategories.map(cat => {
-              return <Link to={"/category/"+cat.id} key={cat.id}>{cat.name}</Link>
+              return <Link to={"/category/"+cat.id} key={cat.id} className={styles.categorySubcategoriesElement}>
+                {cat.products[0]?.photos[0] && <div>
+                  <img
+                    src={"http://localhost:3000/cdn/"+cat.products[0]?.photos[0]}
+                    width="256"/>
+                </div>}
+                <p>{cat.name}</p>
+              </Link>
             })
           }
           </section>}

@@ -9,11 +9,12 @@ export class AuthService {
     constructor(private prisma: PrismaService) { };
 
     async createUser(name: string, password: string) {
+      console.log(name, password);
         const parse = {
             name: z.string().safeParse(name),
             password: z.string().min(7).safeParse(password)
         };
-        if (!parse.name.success || !parse.password.success) // 
+        if (!parse.name.success || !parse.password.success) //
             return {erorr: "Problem in data", data: Object.values(parse).filter(e => !e.success)};
 
         const hashPassword = await toHash(password);
@@ -37,7 +38,7 @@ export class AuthService {
             name: z.string().safeParse(name),
             password: z.string().min(7).safeParse(password)
         };
-        if (!parse.name.success || !parse.password.success) // 
+        if (!parse.name.success || !parse.password.success) //
             return {error: "Problem in data", data: Object.values(parse).filter(e => !e.success)};
 
         const hash = await toHash(password);

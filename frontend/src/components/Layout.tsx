@@ -15,8 +15,9 @@ export default function Layout({ children }: ILayout) {
 
   useEffect(() => {
     if(!user) {
-      const localUser = localStorage.getItem("user");
+      const localUser = localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
       if(!localUser) return;
+      setUser(localUser);
     }
   }, [])
 

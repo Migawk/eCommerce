@@ -6,10 +6,13 @@ import Button from "../../components/main/Button/Button";
 import google from "../../assets/png/Google.png";
 import warning from "../../assets/svg/warning.svg";
 import arrowLeft from "../../assets/svg/longArrowLeft.svg";
+import confetti from "../../assets/jpg/confetti.jpg";
 
 import { useState, useEffect } from "react";
 import signInF from "./functions/signIn.ts";
 import signUpF from "./functions/signUp.ts";
+
+import { useUser } from "../../store/user.ts";
 
 interface ISignIn {
   email: string;
@@ -31,22 +34,43 @@ export default function Authorization() {
     password: "",
     isOk: false
   });
+  const [popUp, setPopUp] = useState<false | {email: string}>(false);
+  const user = useUser(state => state.user);
+  const set = useUser(state => state.setUser);
 
   function verifySignIn(e) {
     setSignIn(pr => { return {...pr, ...signInF.verify(e)} });
     if(!signInF.check().isOk) return setSignIn(pr => { return {...pr, isOk: false}});
     return setSignIn(pr => { return {...pr, isOk: true}});
   }
-  function signInSubmit(e) {
-    e.preventDefault();
-    const {signInEmail: email, signInPassword: password} = e.target;
-
-    console.log({email: email.value, password: password.value});
-  }
   function verifySignUp(e) {
     setSignUp(pr => { return {...pr, ...signUpF.verify(e)} });
     if(!signUpF.check().isOk) return setSignUp(pr => { return {...pr, isOk: false}});
     return setSignUp(pr => { return {...pr, isOk: true}});
+  }
+
+  function signUpSubmit(e) {
+    e.preventDefault();
+    const {signUpName: name, signUpEmail: email, signUpPassword: password} = e.currentTarget;
+    const body = JSON.stringify({name: name.value, email: email.value, password: password.value});
+
+    if(!name.value) return;
+    if(!email.value) return;
+    if(!password.value) return;
+    fetch("http://localhost:3000/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: body
+    }).then(res => res.json()).then((response) => {
+      if(response.message) return response.message;
+      const { res, token } = response;
+      set(res);
+      setPopUp({email: email.value});
+      localStorage.setItem("user", JSON.stringify(res));
+      document.cookie = "token="+token;
+    });
   }
 
   return (
@@ -62,7 +86,7 @@ export default function Authorization() {
         <div className={styles.title}>
           <h2>Sign in</h2>
         </div>
-        <form className={styles.fields} onSubmit={signInSubmit}>
+        <form className={styles.fields}>
           <Input
             holder="Email adress"
             id="signInEmail"
@@ -107,7 +131,7 @@ export default function Authorization() {
         <div className={styles.title}>
           <h2>Sign up</h2>
         </div>
-        <form className={styles.fields}>
+        <form className={styles.fields} onClick={signUpSubmit}>
           <Input
             holder="Name"
             id="signUpName"
@@ -144,7 +168,7 @@ export default function Authorization() {
             </div>
           </div>
           <div className={styles.buttons}>
-            <Button style="dark" disabled={!signUp.isOk}>SIGN UP</Button>
+            <Button style={!signUp.isOk ? "dark" : "blue"} disabled={!signUp.isOk}>SIGN UP</Button>
             <div className={styles.buttonsDivider}>
               <div className={styles.buttonsDividerElement}>OR</div>
             </div>
@@ -156,6 +180,22 @@ export default function Authorization() {
         </form>
       </div>
       </article>
+      {
+          popUp && <div className={styles.window}>
+            <div>
+              <img src={confetti} alt="Congratulation, blue confetti in image!" width="90"/>
+              <b>Check your email</b>
+              <p>
+                We have just sent you your new confirmation email to complete
+                your registration to
+              </p>
+              <b>{popUp.email}</b>
+              <button onClick={() => setPopUp(false)}>
+                <Button>I understood</Button>
+              </button>
+            </div>
+          </div>
+      }
     </main>
   )
 }
