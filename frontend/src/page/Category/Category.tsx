@@ -1,4 +1,5 @@
 import styles from "./category.module.sass";
+import IProduct from "../../types/products.ts";
 
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -27,8 +28,28 @@ interface ISorting {
 export default function Category() {
   const {id} = useParams();
   const [category, setCategory] = useState<"pending" | {status: string, message: string} | ICategory>("pending");
+  const [products, setProducts] = useState<null | IProduct>(null);
 
   const [sortParams, setParams] = useState<ISortParams>({});
+
+  function toSort() {
+    if(!category.products || !sortParams) return;
+    const params = Object.fromEntries(Object.entries(sortParams).map(el => {
+      return [el[0], el[1].filter(param => param.selected)]
+    }).filter(el => el !== undefined));
+
+    const rawProducts = category.products.filter(el => {
+      const colors = el.colors.map(color => {
+        return params.colors.findIndex((el) => el.color == color) !== -1
+      });
+      return colors.indexOf(true) !== -1;
+    });
+    console.log(rawProducts);
+  }
+
+  useEffect(() => {
+    toSort();
+  }, [sortParams])
 
   useEffect(() => {
     fetch("http://localhost:3000/category/"+id)
@@ -58,7 +79,7 @@ export default function Category() {
         const max = _.maxBy(sort, (o) => o.price).price;
         setParams({
           colors: _.uniqBy(sort.map(param => {return {color: param.colors[0], selected: false}}), 'color'),
-          size: _.uniqBy(sort.map(param => {return {size: param.size[0], selected: false}}), 'size'),
+          size: _.uniqBy(sort.map(param => {return {size: param.size[0], selected: false}}), (o) => o.size.split(",")[0]),
           popularity: [
             {stars: 5, selected: false},
             {stars: 4, selected: false},
@@ -72,10 +93,6 @@ export default function Category() {
         setCategory({status: "Problem", message: error.toString()});
       });
   }, [id]);
-
-  useEffect(() => {
-    console.log(sortParams);
-  }, [sortParams])
 
   if(category === "pending") return (<main>
       <h1>Loading...</h1>
@@ -168,7 +185,7 @@ export default function Category() {
               <div className={styles.sortList}>
                 {
                   sortParams.size && sortParams.size.map((size) => {
-                    const [quant, isAviable] = size.size.split(",");
+                    const [quant, isAviable] = size.size.split(",")[0];
                     return <button
                       key={quant}
                       className={size.selected ? styles.sizeSelected : styles.size}
