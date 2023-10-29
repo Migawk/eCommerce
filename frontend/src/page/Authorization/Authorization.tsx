@@ -7,13 +7,54 @@ import google from "../../assets/png/Google.png";
 import warning from "../../assets/svg/warning.svg";
 import arrowLeft from "../../assets/svg/longArrowLeft.svg";
 
+import { useState, useEffect } from "react";
+import signInF from "./functions/signIn.ts";
+import signUpF from "./functions/signUp.ts";
+
+interface ISignIn {
+  email: string;
+  password: string;
+  isOk: boolean;
+}
+interface ISignUp extends ISignIn {
+  name: string;
+}
 export default function Authorization() {
+  const [signUp, setSignUp] = useState<ISignUp>({
+    name: "",
+    email: "",
+    password: "",
+    isOk: false
+  });
+  const [signIn, setSignIn] = useState<ISignIn>({
+    email: "",
+    password: "",
+    isOk: false
+  });
+
+  function verifySignIn(e) {
+    setSignIn(pr => { return {...pr, ...signInF.verify(e)} });
+    if(!signInF.check().isOk) return setSignIn(pr => { return {...pr, isOk: false}});
+    return setSignIn(pr => { return {...pr, isOk: true}});
+  }
+  function signInSubmit(e) {
+    e.preventDefault();
+    const {signInEmail: email, signInPassword: password} = e.target;
+
+    console.log({email: email.value, password: password.value});
+  }
+  function verifySignUp(e) {
+    setSignUp(pr => { return {...pr, ...signUpF.verify(e)} });
+    if(!signUpF.check().isOk) return setSignUp(pr => { return {...pr, isOk: false}});
+    return setSignUp(pr => { return {...pr, isOk: true}});
+  }
+
   return (
     <main className={styles.main}>
       <nav className={styles.nav}>
         <a href="/">
-        <img src={arrowLeft}/>
-        Back to the website
+          <img src={arrowLeft}/>
+          Back to the website
         </a>
       </nav>
       <article className={styles.typeField}>
@@ -21,19 +62,23 @@ export default function Authorization() {
         <div className={styles.title}>
           <h2>Sign in</h2>
         </div>
-        <form className={styles.fields}>
+        <form className={styles.fields} onSubmit={signInSubmit}>
           <Input
             holder="Email adress"
+            id="signInEmail"
             type="email"
             border={true}
             isRequired={true}
-            label="Email"/>
+            label="Email"
+            onEdit={verifySignIn}/>
           <Input
             holder="Password"
+            id="signInPassword"
             type="password"
             border={true}
             isRequired={true}
-            label="Password"/>
+            label="Password"
+            onEdit={verifySignIn}/>
           <div className={styles.fieldsBottom}>
             <div>
               <label className={styles.label}>
@@ -44,7 +89,7 @@ export default function Authorization() {
             <a href="/forgot" className={styles.forgotPassword}>Forgot password</a>
           </div>
           <div className={styles.buttons}>
-            <Button style="dark" disabled={true}>SIGN IN</Button>
+            <Button style="dark" disabled={!signIn.isOk}>SIGN IN</Button>
             <div className={styles.buttonsDivider}>
               <div className={styles.buttonsDividerElement}>OR</div>
             </div>
@@ -65,22 +110,28 @@ export default function Authorization() {
         <form className={styles.fields}>
           <Input
             holder="Name"
+            id="signUpName"
             type="text"
             border={true}
             isRequired={true}
-            label="Name"/>
+            label="Name"
+            onEdit={verifySignUp}/>
           <Input
             holder="Email adress"
+            id="signUpEmail"
             type="email"
             border={true}
             isRequired={true}
-            label="Email"/>
+            label="Email"
+            onEdit={verifySignUp}/>
           <Input
             holder="Password"
+            id="signUpPassword"
             type="password"
             border={true}
             isRequired={true}
-            label="Password"/>
+            label="Password"
+            onEdit={verifySignUp}/>
           <div className={styles.fieldsBottom}>
             <div>
               <label className={styles.label}>
@@ -93,7 +144,7 @@ export default function Authorization() {
             </div>
           </div>
           <div className={styles.buttons}>
-            <Button style="dark" disabled={true}>SIGN UP</Button>
+            <Button style="dark" disabled={!signUp.isOk}>SIGN UP</Button>
             <div className={styles.buttonsDivider}>
               <div className={styles.buttonsDividerElement}>OR</div>
             </div>

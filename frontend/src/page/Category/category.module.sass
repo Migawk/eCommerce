@@ -60,13 +60,30 @@
 
 .size
   padding: 6px 10px
-  border: 1px solid $secondary
+
+  color: $secondary
   background: $white
+  border: 1px solid $secondary
   border-radius: 5px
+
   font-size: 14px
   font-weight: 600
+
   transition: .5s
   cursor: pointer
+  &Selected
+    padding: 6px 10px
+
+    color: $secondary
+    background: #d1e2eb
+    border: 1px solid $secondary
+    border-radius: 5px
+
+    font-size: 14px
+    font-weight: 600
+
+    transition: .5s
+    cursor: pointer
   &:hover
     background: $gray2
 

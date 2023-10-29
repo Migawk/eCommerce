@@ -6,7 +6,7 @@ import bitcoin from "../../../assets/png/bitcoin.png";
 
 export default function Shipping({ shipping }: { shipping: IShipping[] }) {
     return (
-        <section className={styles.chapterShipping} id="shippingElement">
+        <section className={styles.chapterShipping}>
             <div className={styles.shippingWay}>
               <p className={styles.shippingTitle}>Shipping</p>
               <p className={styles.shippingText}>Calculate the shipping cost by region</p>

@@ -103,14 +103,13 @@ export default function Header() {
                             <div>
                               {
                                 itemList.map(item => {
-                                  console.log(item);
                                   return (
                                     <div
                                       key={item.id}
                                       className={styles.basketElement}>
                                       <Link to={"/products/"+item.id}>
                                         <img
-                                          src=""
+                                          src={"http://localhost:3000/cdn/"+item.photos[0]}
                                           alt="image"
                                           className={styles.basketElementImage}/>
                                       </Link>

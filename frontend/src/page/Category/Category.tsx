@@ -73,6 +73,10 @@ export default function Category() {
       });
   }, [id]);
 
+  useEffect(() => {
+    console.log(sortParams);
+  }, [sortParams])
+
   if(category === "pending") return (<main>
       <h1>Loading...</h1>
     </main>);
@@ -108,7 +112,7 @@ export default function Category() {
             })
           }
           </section>}
-        { category.products.length ? <><section className={styles.categoryInfo}>
+        { sortParams && category.products.length ? <><section className={styles.categoryInfo}>
           <div className={styles.categoryInfoDetails}>
             <h2>
               {category.name}
@@ -158,7 +162,18 @@ export default function Category() {
                 {
                   sortParams.size && sortParams.size.map((size) => {
                     const [quant, isAviable] = size.size.split(",");
-                    return <button key={quant} className={styles.size}>{quant}</button>
+                    return <button
+                      key={quant}
+                      className={size.selected ? styles.sizeSelected : styles.size}
+                      onClick={() => {
+                        setParams((pr) => {
+                          const index = [...pr.size].indexOf(size);
+                          const sizes = [...pr.size];
+                          sizes[index] = {size: size.size, selected: ![...pr.size][index].selected};
+                          return {...pr, size: sizes}
+                        })
+                      }}
+                      >{quant}</button>
                   })
                 }
               </div>

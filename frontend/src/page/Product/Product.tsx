@@ -172,7 +172,7 @@ export default function ProductPage() {
                         <Button><div onClick={() => {
                           setChapter("shipping");
                           setTimeout(() => {
-                            const elem = document.getElementById("shippingElement").scrollIntoView();
+                            const elem = document.getElementById("chapters").scrollIntoView();
                           }, 250); // It works only if you touch text
                         }}>Shop Now</div></Button>
                         <Button style="gray">
@@ -183,7 +183,7 @@ export default function ProductPage() {
                     </div>
                 </section>
             </article>
-            <article className={styles.chapters}>
+            <article className={styles.chapters} id="chapters">
                 <section className={styles.chaptersButtons}>
                     <button
                         disabled={chapter === "details"}
