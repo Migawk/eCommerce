@@ -49,6 +49,12 @@ export default function Authorization() {
     return setSignUp(pr => { return {...pr, isOk: true}});
   }
 
+  function signInSubmit(e) {
+    e.preventDefault();
+    const {signUpEmail: email, signUpPassword: password} = e.currentTarget;
+    const body = JSON.stringify({name: name.value, email: email.value, password: password.value});
+    console.log(body);
+  }
   function signUpSubmit(e) {
     e.preventDefault();
     const {signUpName: name, signUpEmail: email, signUpPassword: password} = e.currentTarget;
@@ -86,7 +92,7 @@ export default function Authorization() {
         <div className={styles.title}>
           <h2>Sign in</h2>
         </div>
-        <form className={styles.fields}>
+        <form className={styles.fields} onSubmit={signInSubmit}>
           <Input
             holder="Email adress"
             id="signInEmail"

@@ -13,7 +13,8 @@ datasource db {
 model User {
   id String @id @unique @default(uuid())
 
-  name String @unique
+  name     String @unique
+  email    String @unique
   password String
 
   role ROLE @default(MEMBER)
@@ -21,7 +22,7 @@ model User {
   isVerified Boolean @default(false)
 
   products Product[]
-  reviews Review[] @relation(name: "userRev")
+  reviews  Review[]  @relation(name: "userRev")
 
   favProducts Product[] @relation("favorite")
 }
@@ -29,16 +30,16 @@ model User {
 model Product {
   id String @id @unique @default(uuid())
 
-  name String @unique
-  price Int
-  discount Int?
-  colors String[] // ["HEX", "rrr, ggg, bbb"]
+  name        String   @unique
+  price       Int
+  discount    Int?
+  colors      String[] // ["HEX", "rrr, ggg, bbb"]
   description String[] // ["Markdown", "Markdown"]
-  photos String[]
-  size String[] // ["SIZE, AVIABLE/SOLD"] -> ["XS, AVIABLE"]
-  rate Int @default(0)// Counts by average arithmetic in server
-  
-  author User @relation(fields: [authorId], references: [id])
+  photos      String[]
+  size        String[] // ["SIZE, AVIABLE/SOLD"] -> ["XS, AVIABLE"]
+  rate        Int      @default(0) // Counts by average arithmetic in server
+
+  author   User   @relation(fields: [authorId], references: [id])
   authorId String
 
   status STATUS
@@ -46,8 +47,8 @@ model Product {
   countLeft Int
   countSold Int
 
-  reviews Review[] @relation(name: "productRev")
-  favUsers User[] @relation("favorite")
+  reviews  Review[] @relation(name: "productRev")
+  favUsers User[]   @relation("favorite")
 
   shipping Shipping[] @relation("shipping")
 
@@ -60,34 +61,34 @@ model Category {
   name String
 
   parentCategories Category[] @relation("categories")
-  subCategories Category[] @relation("categories")
+  subCategories    Category[] @relation("categories")
 
   products Product[]
 }
 
 model Review {
   productId String
-  userId String
+  userId    String
 
   rate Int
 
-  adventages String
+  adventages    String
   disadventages String
-  description String
+  description   String
 
   product Product @relation(fields: [productId], references: [id], name: "productRev")
-  user User @relation(fields: [userId], references: [id], name: "userRev")
+  user    User    @relation(fields: [userId], references: [id], name: "userRev")
 
   @@id([productId, userId])
 }
 
 model Shipping {
-  id String @id @unique @default(uuid())
+  id   String @id @unique @default(uuid())
   name String
   logo String
 
-  price Int
-  duration String
+  price     Int
+  duration  String
   insurance Boolean
 
   products Product[] @relation("shipping")
@@ -99,6 +100,7 @@ enum ROLE {
   MEMBER
   BANNED
 }
+
 enum STATUS {
   InStock
   RunningOut

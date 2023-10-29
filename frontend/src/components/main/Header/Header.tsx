@@ -86,9 +86,9 @@ export default function Header() {
                         <img src={user} />
                         {userState === null ? "Sign in" : userState.name}
                       </Link>
-                    <Link to="/favorite">
+                    <Link to="/favorites">
                         <img src={heart} />
-                        <span>Favorite</span>
+                        <span>Favorites</span>
                     </Link>
                     <Link
                       to="/basket"

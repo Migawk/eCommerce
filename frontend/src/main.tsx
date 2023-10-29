@@ -16,6 +16,7 @@ import About from './page/About/About.tsx';
 import ProductPage from './page/Product/Product.tsx';
 import CategoryPage from "./page/Category/Category.tsx";
 import Authorization from "./page/Authorization/Authorization.tsx";
+import Favorites from "./page/Favorites/Favorites.tsx";
 import Test from './page/Test.tsx';
 
 const router = createBrowserRouter([
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: "/authorization",
     element: <Layout><Authorization/></Layout>
+  },
+  {
+    path: "/favorites",
+    element: <Layout><Favorites/></Layout>
   }
 ]);
 

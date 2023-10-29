@@ -8,6 +8,7 @@ CREATE TYPE "STATUS" AS ENUM ('InStock', 'RunningOut', 'EMPTY');
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "role" "ROLE" NOT NULL DEFAULT 'MEMBER',
     "isVerified" BOOLEAN NOT NULL DEFAULT false,
@@ -95,6 +96,9 @@ CREATE UNIQUE INDEX "User_id_key" ON "User"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_name_key" ON "User"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Product_id_key" ON "Product"("id");

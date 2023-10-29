@@ -9,9 +9,10 @@ import { z } from "zod";
 
 interface IProductElement {
   data: IProduct;
+  isFavorited?: boolean;
 }
 
-export default function ProductElement({data}: IProductElement) {
+export default function ProductElement({data, isFavorited=false}: IProductElement) {
   const parse = z.object({
     id: z.string(),
     name: z.string(),
@@ -22,10 +23,7 @@ export default function ProductElement({data}: IProductElement) {
     description: z.array(z.string()),
     photos: z.array(z.string()),
     size: z.array(z.string()),
-    rate: z.number(),
-    _count: z.object({
-      reviews: z.number()
-    })
+    rate: z.number()
   }).safeParse(data);
 
   if(!parse.success) return <div>bad</div>;
@@ -44,7 +42,7 @@ export default function ProductElement({data}: IProductElement) {
             <div className={styles.infoDescription}>{data.description[0].slice(0, 32)}</div>
           </div>
           <div className={styles.infoRight}>
-            <Heart color="28303F"/>
+            {isFavorited ? <Heart color="FF303F"/> : <Heart color="28303F"/>}
           </div>
         </div>
         <div className={styles.rate}>
@@ -52,7 +50,7 @@ export default function ProductElement({data}: IProductElement) {
             <Rate stars={data.rate}/>
           </div>
           <div>
-            ({data._count.reviews})
+            ({data._count ? data._count.reviews : 0})
           </div>
         </div>
         <div className={styles.price}>
