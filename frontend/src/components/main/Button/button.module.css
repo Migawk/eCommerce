@@ -67,6 +67,10 @@
   color: #434343;
   background: none;
 }
+.gray:hover {
+  background: #434343;
+  color: #fff;
+}
 .tag {
   background: #00A95D;
 }

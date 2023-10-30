@@ -8,18 +8,31 @@
   &>a
     display: flex
     align-items: center
+    color: $primary
     gap: 6px
+    transition: .5s
+    &:hover
+      transition: .25s
+      color: $orange2
 .typeField
   display: flex
   justify-content: center
-  &>.box:first-child
-    border-right: 1px solid $stroke
+  &>.box:nth-child(2)
+    border-left: 1px solid $stroke
 .box
   width: 100%
   padding: 24px
-
+.boxForgot
+  width: 300px
+  &>.title
+    text-align: center
 .title
   margin-bottom: 36px
+  display: flex
+  flex-direction: column
+  gap: 16px
+  &>p
+    color: $secondary
 .fields
   display: flex
   flex-direction: column
@@ -71,7 +84,8 @@
   display: flex
   align-items: center
   gap: 8px
-
+.forgotMessage
+  color: $primary
 .label
   display: flex
   align-items: center

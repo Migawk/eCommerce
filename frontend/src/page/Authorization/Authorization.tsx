@@ -2,6 +2,7 @@ import styles from "./auth.module.sass";
 
 import Input from "../../components/main/Input/Input";
 import Button from "../../components/main/Button/Button";
+import { Link } from "react-router-dom";
 
 import google from "../../assets/png/Google.png";
 import warning from "../../assets/svg/warning.svg";
@@ -116,7 +117,7 @@ export default function Authorization() {
                 <span>Remember for 30 days</span>
               </label>
             </div>
-            <a href="/forgot" className={styles.forgotPassword}>Forgot password</a>
+            <Link to="/forgot" className={styles.forgotPassword}>Forgot password</Link>
           </div>
           <div className={styles.buttons}>
             <Button style="dark" disabled={!signIn.isOk}>SIGN IN</Button>

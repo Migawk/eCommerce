@@ -4,14 +4,19 @@ import Footer from "./main/Footer/Footer";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useUser } from "../store/user.ts";
+import { useItems } from "../store/main.ts";
 
 interface ILayout {
     children: React.ReactNode;
 }
 
 export default function Layout({ children }: ILayout) {
+  const items = useItems(state => state.items);
+
   const user = useUser(state => state.user);
   const setUser = useUser(state => state.setUser);
+
+  useEffect(() => {console.log(items)}, [items]);
 
   useEffect(() => {
     if(!user) {

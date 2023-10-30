@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useItems } from "../../../store/main.ts";
 import { useUser } from "../../../store/user.ts";
+import Button from "../Button/Button";
 
 export default function Header() {
   const [isShowBasket, setShowBasket] = useState<boolean>(false);
@@ -91,15 +92,15 @@ export default function Header() {
                         <span>Favorites</span>
                     </Link>
                     <Link
-                      to="/basket"
+                      to={"/basket"}
                       onMouseEnter={(e) => setShowBasket(true)}
                       onMouseLeave={(e) => setShowBasket(false)}
                     >
                         <img src={card} />
                         <span>Card</span>
-                        <div className={styles.countOrders}>{itemList.length}</div>
+                        {itemList.length !== 0 && <div className={styles.countOrders}>{itemList.length}</div>}
                         {
-                          isShowBasket ? <div className={styles.basketPos}>
+                          isShowBasket && itemList.length ? <div className={styles.basketPos}>
                           <div className={styles.basketField}>
                             <div className={styles.basket}>
                             <div>
@@ -133,7 +134,13 @@ export default function Header() {
                                 })
                               }
                             </div>
-                            <div>Total: <b>${_.sumBy(itemList, (prod) => prod.price*prod.quantity).toFixed(2)}</b></div>
+                            <div>
+                              Total: <b>${_.sumBy(itemList, (prod) => prod.price*prod.quantity).toFixed(2)}</b>
+                            </div>
+                            {<div className={styles.buttons}>
+                              <Button size="tiny">View bag</Button>
+                              <Link to="/checkout"><Button size="tiny" style="gray">Check out</Button></Link>
+                            </div>}
                             </div>
                           </div>
                           </div> : null

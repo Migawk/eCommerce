@@ -16,7 +16,9 @@ import About from './page/About/About.tsx';
 import ProductPage from './page/Product/Product.tsx';
 import CategoryPage from "./page/Category/Category.tsx";
 import Authorization from "./page/Authorization/Authorization.tsx";
+import Forgot from "./page/Authorization/Forgot.tsx";
 import Favorites from "./page/Favorites/Favorites.tsx";
+import Basket from "./page/Basket/Basket.tsx";
 import Test from './page/Test.tsx';
 
 const router = createBrowserRouter([
@@ -53,8 +55,16 @@ const router = createBrowserRouter([
     element: <Layout><Authorization/></Layout>
   },
   {
+    path: "/forgot",
+    element: <Layout><Forgot/></Layout>
+  },
+  {
     path: "/favorites",
     element: <Layout><Favorites/></Layout>
+  },
+  {
+    path: "/basket",
+    element: <Layout><Basket/></Layout>
   }
 ]);
 

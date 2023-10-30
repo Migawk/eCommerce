@@ -25,6 +25,7 @@ export default function Leaflets({data}: {data: [ILeaflet, ILeaflet]}) {
         data.map(leaflet => { // however, there are only 2 leaflets, look at params type.
           return (
             <Leaflet
+              key={leaflet.title}
               title={leaflet.title}
               description={leaflet.description}
               link={leaflet.link}

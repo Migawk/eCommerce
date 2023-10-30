@@ -1,8 +1,12 @@
 import styles from "./menu.module.sass";
+
 import SubCategory from "./components/subCategory.tsx";
 import Banner from "./components/Banner.tsx";
+
 import { useEffect, useState } from "react";
 import { fromEvent } from 'rxjs';
+
+import { ICategory } from "../../../types/categories.ts";
 
 export default function ProductNavigation() {
   const [choosed, setChoosed] = useState<{num: number, left: number}>({num: 0, left: 0});
@@ -44,7 +48,7 @@ export default function ProductNavigation() {
           	  <a
                 className={styles.element}
                 id="category 1"
-                href='/category/cebcb66f-94a9-47f7-80e6-39ffc7ee1bdd'>
+                href='/category/38695f85-8771-4fea-aeec-689432580efd'>
                 Woman
               </a>
             </li>

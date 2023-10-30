@@ -65,7 +65,7 @@ export class CategoryService {
       }
     });
   }
-
+  
   createCategory(category: ICategory) {
     let subCategories;
     let parentCategories;
