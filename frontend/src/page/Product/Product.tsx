@@ -96,7 +96,6 @@ export default function ProductPage() {
                         <img
                             src={photos[choosed]}
                             height={664}
-                            width={500}
                         />
                     </div>
                     {

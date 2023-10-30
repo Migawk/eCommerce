@@ -43,19 +43,34 @@
         height: 253px
         overflow: hidden
 
+@media screen and (max-width: 1000px)
+  .category
+    &Products
+      display: flex
+      flex-direction: column
+      gap: 20px
+      width: 100%
+
 .sidebar
-  padding: 36px 32px 36px 64px
-  width: min-content
+  padding: 36px 16px 36px 24px
+  width: 360px
   height: 100vh
   overflow-y: scroll
   position: sticky
   top: 0
   &Wrapper
-    padding: 28px  24px
+    padding: 28px 24px
     border-bottom: 1px solid black
   &Price
     display: flex
     justify-content: space-between
+@media screen and (max-width: 1000px)
+  .sidebar
+    padding: 12px 4px 12px 8px
+
+@media screen and (max-width: 680px)
+  .sidebar
+    display: none
 
 .sectionProducts
   display: flex
@@ -65,7 +80,7 @@
   display: flex
   gap: 12px
   flex-wrap: wrap
-  width: 65%
+  width: 100%
 
 .color
   width: 24px

@@ -47,21 +47,25 @@ export default function Card(
         <img src={data.photo} alt={data.description} width="241" height="auto"/>
       </Link>
       <div className={styles.card1Bottom}>
-        <div className={styles.card1Name}>
-          {data.name}
+        <div className={styles.card1BottomTop}>
+          <div className={styles.card1Name}>
+            {data.name}
+          </div>
+          <div className={styles.card1Des}>
+            {data.description}
+          </div>
         </div>
-        <div className={styles.card1Des}>
-          {data.description}
-        </div>
-        <div>
-          {data.rating}({data.ratingCount})
-        </div>
-        <div className={styles.card1Offer}>
-          <span className={styles.card1Price}>${data.discount}</span>
-          <span className={styles.card1Discount}>${data.price}</span>
-          {typeof data.discount === "number" ? <div className={styles.card1DiscountBox}>
-            -&nbsp;{Math.round((data.discount/data.price as any).toFixed(2)*100)}%
-          </div> : null}
+        <div className={styles.card1BottomBottom}>
+          <div>
+            {data.rating}({data.ratingCount})
+          </div>
+          <div className={styles.card1Offer}>
+            <span className={styles.card1Price}>${data.discount}</span>
+            <span className={styles.card1Discount}>${data.price}</span>
+            {typeof data.discount === "number" ? <div className={styles.card1DiscountBox}>
+              -&nbsp;{Math.round((data.discount/data.price as any).toFixed(2)*100)}%
+            </div> : null}
+          </div>
         </div>
       </div>
     </div>

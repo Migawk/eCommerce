@@ -21,3 +21,20 @@
   justify-content: space-between
   gap: 20px
   flex-wrap: wrap
+  &>*
+    width: max-content
+
+@media screen and (max-width: 1000px)
+  .cards
+    justify-content: center
+    flex-wrap: wrap
+    &>*
+      width: 45%
+
+@media screen and (max-width: 750px)
+  .cards
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
+    &>*
+      overflow-x: hidden

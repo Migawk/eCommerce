@@ -7,7 +7,13 @@
     display: flex
     justify-content: space-between
     align-items: center
+    flex-wrap: wrap
+    gap: 12px
     width: 100%
+    &Left, &Right
+      display: flex
+      justify-content: space-between
+      width: 100%
 .logo
     display: flex
     align-items: center
@@ -94,6 +100,17 @@ nav>ul
         justify-content: center
         align-items: center
         width: 33%
+
+@media screen and (max-width: 1000px)
+  .bottom
+    &Left
+      width: 90%
+      justify-content: space-between
+    &Center
+      display: none
+    &Right
+      width: 90%
+
 .countOrders
     background: $green400
     width: 24px

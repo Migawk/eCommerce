@@ -6,6 +6,7 @@
 .article
     display: flex
 
+
 .photo
     display: flex
 
@@ -43,6 +44,28 @@
         cursor: zoom-in
         z-index: 99
 
+@media screen and (max-width: 1250px)
+  .choosedPhoto
+    &>img
+      width: 280px
+      object-fit: cover
+      overflow: hidden
+
+@media screen and (max-width: 600px)
+  .main
+    padding: 0
+  .article
+    flex-wrap: wrap
+  .photo
+    width: 100%
+    flex-direction: column-reverse
+  .list
+    flex-direction: row
+    overflow: hidden
+  .choosedPhoto
+    &>img
+      width: 100%
+
 .info
     padding: 60px 0 0 60px
     display: flex
@@ -78,6 +101,7 @@
         font-weight: 700
     &Fields
         display: flex
+        flex-wrap: wrap
         gap: 12px
         &>*
             border: 2px solid rgba(0, 0, 0, 1)

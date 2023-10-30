@@ -27,31 +27,35 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.top}>
-                <Link className={styles.logo} to="/">
-                    <div className="ico"><img src={logo} /></div>
-                    <div className="text">Luminae</div>
-                </Link>
-                <div className={styles.search}>
-                    <input type="text" placeholder="Search Products" className={styles.searchInput} />
-                    <select className={styles.searchSelect}>
-                        <option value="all">All Categories</option>
-                        <option value="clothes">Clothes</option>
-                        <option value="shoes">Shoes</option>
-                    </select>
-                    <button className={styles.searchButton}><img src={glass} /></button>
+                <div className={styles.topLeft}>
+                  <Link className={styles.logo} to="/">
+                      <div className="ico"><img src={logo} /></div>
+                      <div className="text">Luminae</div>
+                  </Link>
+                  <div className={styles.search}>
+                      <input type="text" placeholder="Search Products" className={styles.searchInput} />
+                      <select className={styles.searchSelect}>
+                          <option value="all">All Categories</option>
+                          <option value="clothes">Clothes</option>
+                          <option value="shoes">Shoes</option>
+                      </select>
+                      <button className={styles.searchButton}><img src={glass} /></button>
+                  </div>
                 </div>
-                <nav>
-                    <ul>
-                        <li><Link to="/about">About us</Link></li>
-                        <li><Link to="/blog">Blog</Link></li>
-                        <li><Link to="/contacts">Contact us</Link></li>
-                        <li><Link to="/support">Help & support</Link></li>
-                    </ul>
-                </nav>
-                <div className={styles.contacts}>
-                    <button><img alt="contact us in instagram" src={instagram} /></button>
-                    <button><img alt="contact us in facebook" src={facebook} /></button>
-                    <button><img alt="contact us in telegram" src={telegram} /></button>
+                <div className={styles.topRight}>
+                  <nav>
+                      <ul>
+                          <li><Link to="/about">About us</Link></li>
+                          <li><Link to="/blog">Blog</Link></li>
+                          <li><Link to="/contacts">Contact us</Link></li>
+                          <li><Link to="/support">Help & support</Link></li>
+                      </ul>
+                  </nav>
+                  <div className={styles.contacts}>
+                      <button><img alt="contact us in instagram" src={instagram} /></button>
+                      <button><img alt="contact us in facebook" src={facebook} /></button>
+                      <button><img alt="contact us in telegram" src={telegram} /></button>
+                  </div>
                 </div>
             </div>
             <div className={styles.bottom}>

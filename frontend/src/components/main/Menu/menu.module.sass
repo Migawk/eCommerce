@@ -93,6 +93,7 @@
     align-items: center
     justify-content: center
     flex-direction: column
+    text-align: center
     gap: 32px
 
   &Title
@@ -102,3 +103,8 @@
   &SubTitle
     font-size: 28px
     color: $white
+
+@media screen and (max-width: 1000px)
+  .banner
+    &Window
+      display: none
