@@ -3,6 +3,7 @@ import IProduct from "../../types/products.ts";
 
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 import starD from "../../assets/svg/star.svg";
 import starA from "../../assets/svg/starActive.svg";
@@ -34,17 +35,18 @@ export default function Category() {
 
   function toSort() {
     if(!category.products || !sortParams) return;
-    const params = Object.fromEntries(Object.entries(sortParams).map(el => {
-      return [el[0], el[1].filter(param => param.selected)]
-    }).filter(el => el !== undefined));
+    // const params =
+    // const params = Object.fromEntries(Object.entries(sortParams).map(el => {
+    //   return [el[0], el[1].filter(param => param.selected)]
+    // }).filter(el => el !== undefined));
 
-    const rawProducts = category.products.filter(el => {
-      const colors = el.colors.map(color => {
-        return params.colors.findIndex((el) => el.color == color) !== -1
-      });
-      return colors.indexOf(true) !== -1;
-    });
-    console.log(rawProducts);
+    // const rawProducts = category.products.filter(el => {
+    //   const colors = el.colors.map(color => {
+    //     return params.colors.findIndex((el) => el.color == color) !== -1
+    //   });
+    //   return colors.indexOf(true) !== -1;
+    // });
+    // console.log(rawProducts);
   }
 
   useEffect(() => {
@@ -94,13 +96,27 @@ export default function Category() {
       });
   }, [id]);
 
-  if(category === "pending") return (<main>
-      <h1>Loading...</h1>
-    </main>);
-  if(typeof category !== "string" && "message" in category) return (<div className={styles.message}>
-      <h1>{category.status}</h1>
-      <h2>{category.message}</h2>
-    </div>);
+  if(category === "pending") return (
+      <>
+        <Helmet>
+          <title>Loading</title>
+        </Helmet>
+        <main>
+          <h1>Loading...</h1>
+        </main>
+      </>
+  )
+  if(typeof category !== "string" && "message" in category) return (
+    <>
+      <Helmet>
+        <title>Category | Error</title>
+      </Helmet>
+      <div className={styles.message}>
+        <h1>{category.status}</h1>
+        <h2>{category.message}</h2>
+      </div>
+    </>
+  );
 
   let row = [
     {name: "Homepage", link: "/"},
@@ -115,151 +131,156 @@ export default function Category() {
   }
 
   return (
-    <main>
-      <article>
-        <section>
-          <Navigation row={
-            row
-          }/>
-        </section>
-        { category.subCategories && <section className={styles.categorySubcategories}>
-          {
-            category.subCategories.map(cat => {
-              return <Link to={"/category/"+cat.id} key={cat.id} className={styles.categorySubcategoriesElement}>
-                {cat.products[0]?.photos[0] && <div>
-                  <img
-                    src={"http://localhost:3000/cdn/"+cat.products[0]?.photos[0]}
-                    width="256"/>
-                </div>}
-                <p>{cat.name}</p>
-              </Link>
-            })
-          }
-          </section>}
-        { sortParams && category.products.length ? <><section className={styles.categoryInfo}>
-          <div className={styles.categoryInfoDetails}>
-            <h2>
-              {category.name}
-            </h2>
-            <span>
-              {category.products.length} items
-            </span>
-          </div>
-          <div>
-          </div>
-        </section>
-        <section className={styles.sectionProducts}>
-          <aside className={styles.sidebar}>
-            <div className={styles.sidebarWrapper}>
-              <button className={styles.categoriesButton}>
-                <img src={categories}/>
-                <span>All Categories</span>
-              </button>
-              <h4>Brand</h4>
-              <input type="text" placeholder="search"/>
+    <>
+      <Helmet>
+        <title>Category | {category.name}</title>
+      </Helmet>
+      <main>
+        <article>
+          <section>
+            <Navigation row={
+              row
+            }/>
+          </section>
+          { category.subCategories && <section className={styles.categorySubcategories}>
+            {
+              category.subCategories.map(cat => {
+                return <Link to={"/category/"+cat.id} key={cat.id} className={styles.categorySubcategoriesElement}>
+                  {cat.products[0]?.photos[0] && <div>
+                    <img
+                      src={"http://localhost:3000/cdn/"+cat.products[0]?.photos[0]}
+                      width="256"/>
+                  </div>}
+                  <p>{cat.name}</p>
+                </Link>
+              })
+            }
+            </section>}
+          { sortParams && category.products.length ? <><section className={styles.categoryInfo}>
+            <div className={styles.categoryInfoDetails}>
+              <h2>
+                {category.name}
+              </h2>
+              <span>
+                {category.products.length} items
+              </span>
             </div>
-            <div className={styles.sidebarWrapper}>
-              <h4>Color</h4>
-              <div className={styles.sortList}>
-                {
-                  sortParams.colors && sortParams.colors?.map((color) => {
-                    return <div
-                      key={color.color}
-                      style={{background: color.color}}
-                      className={styles.color}
-                      onClick={() => {
-                        setParams((pr) => {
-                          const index = [...pr.colors].indexOf(color);
-                          const colors = [...pr.colors];
-                          colors[index] = {color: color.color, selected: ![...pr.colors][index].selected};
-                          return {...pr, colors}
-                        })
-                      }}>
-                      {color.selected && <img src={check}/>}</div>
-                  })
-                }
+            <div>
+            </div>
+          </section>
+          <section className={styles.sectionProducts}>
+            <aside className={styles.sidebar}>
+              <div className={styles.sidebarWrapper}>
+                <button className={styles.categoriesButton}>
+                  <img src={categories}/>
+                  <span>All Categories</span>
+                </button>
+                <h4>Brand</h4>
+                <input type="text" placeholder="search"/>
               </div>
-            </div>
-            <div className={styles.sidebarWrapper}>
-              <h4>Size</h4>
-              <div className={styles.sortList}>
-                {
-                  sortParams.size && sortParams.size.map((size) => {
-                    const [quant, isAviable] = size.size.split(",")[0];
-                    return <button
-                      key={quant}
-                      className={size.selected ? styles.sizeSelected : styles.size}
-                      onClick={() => {
-                        setParams((pr) => {
-                          const index = [...pr.size].indexOf(size);
-                          const sizes = [...pr.size];
-                          sizes[index] = {size: size.size, selected: ![...pr.size][index].selected};
-                          return {...pr, size: sizes}
-                        })
-                      }}
-                      >{quant}</button>
-                  })
-                }
-              </div>
-            </div>
-            <div className={styles.sidebarWrapper}>
-              <h4>Most popular</h4>
-              <div>
-                <div>
-                  <img src={starA}/>
-                  <img src={starA}/>
-                  <img src={starA}/>
-                  <img src={starA}/>
-                  <img src={starA}/>
-                </div>
-                <div>
-                  <img src={starA}/>
-                  <img src={starA}/>
-                  <img src={starA}/>
-                  <img src={starA}/>
-                  <img src={starD}/>
-                </div>
-                <div>
-                  <img src={starA}/>
-                  <img src={starA}/>
-                  <img src={starA}/>
-                  <img src={starD}/>
-                  <img src={starD}/>
-                </div>
-                <div>
-                  <img src={starA}/>
-                  <img src={starA}/>
-                  <img src={starD}/>
-                  <img src={starD}/>
-                  <img src={starD}/>
-                </div>
-                <div>
-                  <img src={starA}/>
-                  <img src={starD}/>
-                  <img src={starD}/>
-                  <img src={starD}/>
-                  <img src={starD}/>
+              <div className={styles.sidebarWrapper}>
+                <h4>Color</h4>
+                <div className={styles.sortList}>
+                  {
+                    sortParams.colors && sortParams.colors?.map((color) => {
+                      return <div
+                        key={color.color}
+                        style={{background: color.color}}
+                        className={styles.color}
+                        onClick={() => {
+                          setParams((pr) => {
+                            const index = [...pr.colors].indexOf(color);
+                            const colors = [...pr.colors];
+                            colors[index] = {color: color.color, selected: ![...pr.colors][index].selected};
+                            return {...pr, colors}
+                          })
+                        }}>
+                        {color.selected && <img src={check}/>}</div>
+                    })
+                  }
                 </div>
               </div>
-            </div>
-            <div className={styles.sidebarWrapper}>
-              <h4>Price</h4>
-              <div className={styles.sidebarPrice}>
-                <div>Minimum {sortParams.price[0]}</div>
-                <div>Maximum {sortParams.price[1]}</div>
+              <div className={styles.sidebarWrapper}>
+                <h4>Size</h4>
+                <div className={styles.sortList}>
+                  {
+                    sortParams.size && sortParams.size.map((size) => {
+                      const [quant, isAviable] = size.size.split(",")[0];
+                      return <button
+                        key={quant}
+                        className={size.selected ? styles.sizeSelected : styles.size}
+                        onClick={() => {
+                          setParams((pr) => {
+                            const index = [...pr.size].indexOf(size);
+                            const sizes = [...pr.size];
+                            sizes[index] = {size: size.size, selected: ![...pr.size][index].selected};
+                            return {...pr, size: sizes}
+                          })
+                        }}
+                        >{quant}</button>
+                    })
+                  }
+                </div>
               </div>
+              <div className={styles.sidebarWrapper}>
+                <h4>Most popular</h4>
+                <div>
+                  <div>
+                    <img src={starA}/>
+                    <img src={starA}/>
+                    <img src={starA}/>
+                    <img src={starA}/>
+                    <img src={starA}/>
+                  </div>
+                  <div>
+                    <img src={starA}/>
+                    <img src={starA}/>
+                    <img src={starA}/>
+                    <img src={starA}/>
+                    <img src={starD}/>
+                  </div>
+                  <div>
+                    <img src={starA}/>
+                    <img src={starA}/>
+                    <img src={starA}/>
+                    <img src={starD}/>
+                    <img src={starD}/>
+                  </div>
+                  <div>
+                    <img src={starA}/>
+                    <img src={starA}/>
+                    <img src={starD}/>
+                    <img src={starD}/>
+                    <img src={starD}/>
+                  </div>
+                  <div>
+                    <img src={starA}/>
+                    <img src={starD}/>
+                    <img src={starD}/>
+                    <img src={starD}/>
+                    <img src={starD}/>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.sidebarWrapper}>
+                <h4>Price</h4>
+                <div className={styles.sidebarPrice}>
+                  <div>Minimum {sortParams.price[0]}</div>
+                  <div>Maximum {sortParams.price[1]}</div>
+                </div>
+              </div>
+              20 products found
+            </aside>
+            <div className={styles.categoryProducts}>
+            {
+              category.products.map(product => {
+                return <ProductElement key={product.id} data={product}/>
+              })
+            }
             </div>
-            20 products found
-          </aside>
-          <div className={styles.categoryProducts}>
-          {
-            category.products.map(product => {
-              return <ProductElement key={product.id} data={product}/>
-            })
-          }
-          </div>
-        </section></> : <div>It's an empty list</div>}
-      </article>
-    </main>
+          </section></> : <div>It's an empty list</div>}
+        </article>
+      </main>
+    </>
   );
 }

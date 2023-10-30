@@ -2,14 +2,15 @@ import { useState } from "react";
 import styles from "./quantity.module.sass";
 
 interface IQuantity {
+    number?: number;
     min?: number;
     max: number;
     name: string;
     onChange?: any;
 }
 
-export default function Quantity({ min = 0, max, name, onChange }: IQuantity) {
-    const [value, setValue] = useState<number>(1);
+export default function Quantity({ number=1, min = 0, max, name, onChange }: IQuantity) {
+    const [value, setValue] = useState<number>(number);
 
     function increase() {
         if (value + 1 > max) return;

@@ -2,6 +2,7 @@ import styles from "./menu.module.sass";
 
 import SubCategory from "./components/subCategory.tsx";
 import Banner from "./components/Banner.tsx";
+import { Link } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import { fromEvent } from 'rxjs';
@@ -45,12 +46,12 @@ export default function ProductNavigation() {
           <ul className={styles.list}>
             {choosed.num > 0 ? <SubCategory left={choosed.left}/> : null}
             <li id="category 1">
-          	  <a
+          	  <Link
                 className={styles.element}
                 id="category 1"
-                href='/category/38695f85-8771-4fea-aeec-689432580efd'>
+                to='/category/38695f85-8771-4fea-aeec-689432580efd'>
                 Woman
-              </a>
+              </Link>
             </li>
             <li id="category 2">
               <button className={styles.element}>

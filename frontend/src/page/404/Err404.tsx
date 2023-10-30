@@ -7,6 +7,7 @@ import styles from "./err.module.sass";
 
 import Panel from "./Panel.tsx";
 import Card from "../../components/main/Card/Card.tsx";
+import { Helmet } from "react-helmet";
 import { useState, useEffect } from "react";
 
 import { fromEvent } from "rxjs";
@@ -81,29 +82,34 @@ export default function Err404() {
   }, []);
 
   return (
-    <main>
-      <article>
-        <section className={styles.err}>
-          <img src={image}/>
-          <Panel/>
-        </section>
-        <section className={styles.slider}>
-          <button className={styles.arrow}>
-            <img src={arrowLeft}/>
-          </button>
-          <div className={styles.list}>
-            {
-              products.slice(0, len)
-                .map(el =>
-                  <Card type="tiny" data={el} key={el.name}/>
-                )
-            }
-          </div>
-          <button className={styles.arrow}>
-            <img src={arrowRight}/>
-          </button>
-        </section>
-      </article>
-    </main>
+    <>
+      <Helmet>
+        <title>Not found</title>
+      </Helmet>
+      <main>
+        <article>
+          <section className={styles.err}>
+            <img src={image}/>
+            <Panel/>
+          </section>
+          <section className={styles.slider}>
+            <button className={styles.arrow}>
+              <img src={arrowLeft}/>
+            </button>
+            <div className={styles.list}>
+              {
+                products.slice(0, len)
+                  .map(el =>
+                    <Card type="tiny" data={el} key={el.name}/>
+                  )
+              }
+            </div>
+            <button className={styles.arrow}>
+              <img src={arrowRight}/>
+            </button>
+          </section>
+        </article>
+      </main>
+    </>
   )
 }

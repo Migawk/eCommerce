@@ -1,5 +1,6 @@
 import Header from "./main/Header/Header";
 import Footer from "./main/Footer/Footer";
+import { Helmet } from "react-helmet";
 
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -12,11 +13,20 @@ interface ILayout {
 
 export default function Layout({ children }: ILayout) {
   const items = useItems(state => state.items);
+  const setItems = useItems(state => state.setItems);
 
   const user = useUser(state => state.user);
   const setUser = useUser(state => state.setUser);
 
-  useEffect(() => {console.log(items)}, [items]);
+  useEffect(() => {
+    if(items === null) {
+      const localItems = localStorage.getItem("items");
+      if(!localItems && JSON.parse(localItems) === undefined) return;
+      const itemsList = JSON.parse(localItems);
+      if(itemsList.length !== 0) setItems(JSON.parse(localItems));
+    }
+    // localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
   useEffect(() => {
     if(!user) {
@@ -30,6 +40,9 @@ export default function Layout({ children }: ILayout) {
 
   return (
     <>
+      <Helmet>
+        <title>Luminae</title>
+      </Helmet>
       <Header/>
       {children}
       <Footer isOffer={path === "/"}/>

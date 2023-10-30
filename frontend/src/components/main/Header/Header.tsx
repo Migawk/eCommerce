@@ -98,9 +98,9 @@ export default function Header() {
                     >
                         <img src={card} />
                         <span>Card</span>
-                        {itemList.length !== 0 && <div className={styles.countOrders}>{itemList.length}</div>}
+                        {itemList !== null && <div className={styles.countOrders}>{itemList.length}</div>}
                         {
-                          isShowBasket && itemList.length ? <div className={styles.basketPos}>
+                          isShowBasket && itemList !== null ? <div className={styles.basketPos}>
                           <div className={styles.basketField}>
                             <div className={styles.basket}>
                             <div>

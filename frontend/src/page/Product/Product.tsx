@@ -2,20 +2,23 @@ import styles from "./product.module.sass";
 
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 import { useItems } from "../../store/main.ts";
+import { createPortal } from "react-dom";
 
 import Navigation from "../../components/main/Navigation/Navigation";
 import Details from "./chapters/Details";
 import Err404 from "../404/Err404";
-
-import IProduct, { IReview } from "../../types/products";
+import { Helmet } from "react-helmet"
 import Quantity from "../../components/main/Quantity/Quantity";
 import Button from "../../components/main/Button/Button";
-import heart from "../../assets/svg/heartFilled.svg";
 
 import Reviews from "./chapters/Review";
 import Shipping from "./chapters/Shipping";
+
+import IProduct, { IReview } from "../../types/products";
+
+import heart from "../../assets/svg/heartFilled.svg";
+
 
 export default function ProductPage() {
     const { id } = useParams();
@@ -60,6 +63,10 @@ export default function ProductPage() {
     if (!id || product === 404) return <Err404 />;
     if (photos.length < product.photos.length) return <h1>Loading..</h1>;
     return (
+      <>
+        <Helmet>
+          <title>Product | {product.name}</title>
+        </Helmet>
         <main className={styles.main}>
             <Navigation row={
                 [
@@ -215,5 +222,6 @@ export default function ProductPage() {
                 </section>
             </article>
         </main>
+      </>
     )
 }

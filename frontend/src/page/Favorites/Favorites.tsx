@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import ProductElement from "../../components/main/Product/Product.tsx";
 
 import IProduct from "../../types/products.ts";
 
-import ProductElement from "../../components/main/Product/Product.tsx";
 import styles from "./favorite.module.sass";
 
 export default function Favourite() {
@@ -24,23 +25,28 @@ export default function Favourite() {
     });
   }, []);
   return (
-    <main className={styles.main}>
-      <nav className={styles.nav}>
-        <Link>Back to website</Link>
-      </nav>
-      <article>
-        { fav !== "err" && <section>
-          { fav ? fav.map((product) => {
-            return <ProductElement key={product.id} data={product} isFavorited={true}/>
-          }) : <h1>You've no one favorite Product!</h1>}
-        </section> }
-        {
-          fav === "err" && <section>
-            <h1>You're not authorized!</h1>
-            <p>Only authorized users can have favorite products.</p>
-          </section>
-        }
-      </article>
-    </main>
+    <>
+      <Helmet>
+        <title>Favorites</title>
+      </Helmet>
+      <main className={styles.main}>
+        <nav className={styles.nav}>
+          <Link>Back to website</Link>
+        </nav>
+        <article>
+          { fav !== "err" && <section>
+            { fav ? fav.map((product) => {
+              return <ProductElement key={product.id} data={product} isFavorited={true}/>
+            }) : <h1>You've no one favorite Product!</h1>}
+          </section> }
+          {
+            fav === "err" && <section>
+              <h1>You're not authorized!</h1>
+              <p>Only authorized users can have favorite products.</p>
+            </section>
+          }
+        </article>
+      </main>
+    </>
   )
 }

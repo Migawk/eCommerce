@@ -1,6 +1,8 @@
 import Group from "../../components/main/cardGroup/Group.tsx";
 import Leaflet from "../../components/main/Card/components/Leaflets.tsx";
 import Slider from  "../../components/main/Slider/Slider.tsx";
+import { Helmet } from "react-helmet";
+
 import { ILeaflet } from "../../types/cards.ts";
 
 import leafWoman from "../../assets/jpg/leafwoman.jpg";
@@ -144,23 +146,28 @@ export default function Main() {
   ]
 
   return (
-    <main>
-      <article>
-        <Group
-          name="Flash Sales"
-          link="#"
-          cards={products}
-        />
-        <Group
-          name="Trending must-haves"
-          link="#"
-          cards={trends}
-          type="big"/>
-        <Group name="Top100" link="#" cards={products}/>
-        {leaflets[0] ? <Leaflet data={leaflets[0] as any}/> : null}
-        <Slider/>
-        {leaflets[1] ? <Leaflet data={leaflets[1] as any}/> : null}
-      </article>
-    </main>
+    <>
+      <Helmet>
+        <title>Luminae | Main</title>
+      </Helmet>
+      <main>
+        <article>
+          <Group
+            name="Flash Sales"
+            link="#"
+            cards={products}
+          />
+          <Group
+            name="Trending must-haves"
+            link="#"
+            cards={trends}
+            type="big"/>
+          <Group name="Top100" link="#" cards={products}/>
+          {leaflets[0] ? <Leaflet data={leaflets[0] as any}/> : null}
+          <Slider/>
+          {leaflets[1] ? <Leaflet data={leaflets[1] as any}/> : null}
+        </article>
+      </main>
+    </>
   )
 }
