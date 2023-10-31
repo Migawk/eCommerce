@@ -5,6 +5,8 @@ import Button from "../../components/main/Button/Button";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
+import { z } from "zod";
+
 import google from "../../assets/png/Google.png";
 import warning from "../../assets/svg/warning.svg";
 import arrowLeft from "../../assets/svg/longArrowLeft.svg";
@@ -53,18 +55,41 @@ export default function Authorization() {
 
   function signInSubmit(e) {
     e.preventDefault();
-    const {signUpEmail: email, signUpPassword: password} = e.currentTarget;
-    const body = JSON.stringify({name: name.value, email: email.value, password: password.value});
-    console.log(body);
+    const {signInEmail: email, signInPassword: password} = e.currentTarget;
+    console.log(e.currentTarget);
+    const body = JSON.stringify({email: email.value, password: password.value});
+
+    fetch("http://localhost:3000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body
+    }).then(res => res.json()).then((response) => {
+      if(response.message) return response.message;
+      const { user, token } = response;
+      set(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      document.cookie = "token="+token;
+    });
+
   }
   function signUpSubmit(e) {
     e.preventDefault();
     const {signUpName: name, signUpEmail: email, signUpPassword: password} = e.currentTarget;
     const body = JSON.stringify({name: name.value, email: email.value, password: password.value});
 
-    if(!name.value) return;
-    if(!email.value) return;
-    if(!password.value) return;
+    const { success, error } = z.object({
+      name: z.string().min(3),
+      email: z.string().email(),
+      password: z.string().min(7)
+    }).safeParse({
+      name: name.value,
+      email: email.value,
+      password: password.value
+    })
+
+    if(!success) return;
     fetch("http://localhost:3000/auth/register", {
       method: "POST",
       headers: {

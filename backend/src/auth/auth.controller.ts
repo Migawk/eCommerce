@@ -15,8 +15,8 @@ export class AuthController {
         }
     }
     @Post('login')
-    async logIn(@Body() { name, email, password }: { name: string, email: string, password: string }) {
-        const res = await this.service.logIn(name, email, password);
+    async logIn(@Body() { email, password }: { email: string, password: string }) {
+        const res = await this.service.logIn(email, password);
         if(res.error) {
             if(res.error === "Wrong password") throw new HttpException('Wrong Password', HttpStatus.FORBIDDEN);
             throw new HttpException({message: 'Problem in data', data: res.data}, HttpStatus.FORBIDDEN);

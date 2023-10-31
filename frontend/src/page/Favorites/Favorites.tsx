@@ -31,10 +31,10 @@ export default function Favourite() {
       </Helmet>
       <main className={styles.main}>
         <nav className={styles.nav}>
-          <Link>Back to website</Link>
+          <Link to="/">Back to website</Link>
         </nav>
         <article>
-          { fav !== "err" && <section>
+          { fav !== "err" && <section className={styles.list}>
             { fav ? fav.map((product) => {
               return <ProductElement key={product.id} data={product} isFavorited={true}/>
             }) : <h1>You've no one favorite Product!</h1>}

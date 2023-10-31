@@ -1,0 +1,47 @@
+@import ../../variables
+
+.main
+  display: flex
+  gap: 16px
+  background: $gray2
+  min-height: 100vh
+  width: 100vw
+  padding: 16px 16px 0 16px
+
+.sidebar, .panel
+  background: $white
+  border-radius: 16px
+
+.sidebar
+  width: 256px
+  &List
+    width: 100%
+    display: flex
+    flex-direction: column
+    gap: 8px
+    list-style: none
+    padding: 24px 0
+    &>li
+      width: 100%
+      padding: 0 16px
+      &>button
+        display: flex
+        align-items: center
+        gap: 24px
+        background: none
+        border: none
+        border-radius: 4px
+        width: 100%
+        padding: 12px
+        cursor: pointer
+        text-align: left
+        transition: .5s
+        &:hover
+          background: rgba(222,222,255, .7)
+
+.locked
+  background: $gray2
+  color: $orange2
+.active
+  background: #eaf2fd
+  color: #2F80ED

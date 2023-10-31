@@ -35,20 +35,19 @@ export class AuthService {
             if(e.code === "P2002") return {error: "Name is already taken"};
         }
     }
-    async logIn(name: string, email: string, password: string) {
+    async logIn(email: string, password: string) {
         const parse = {
-            name: z.string().safeParse(name),
             email: z.string().safeParse(email),
             password: z.string().min(7).safeParse(password)
         };
-        if (!parse.name.success || !parse.password.success || !parse.email.success) //
+        if (!parse.email.success || !parse.password.success) //
             return {error: "Problem in data", data: Object.values(parse).filter(e => !e.success)};
 
         const hash = await toHash(password);
 
         const user = await this.prisma.user.findUnique({
             where: {
-                name
+              email
             },
             select: {
                 id: true,
@@ -58,19 +57,21 @@ export class AuthService {
                 products: true,
                 reviews: true,
                 favProducts: {
-                  id: true,
-                  name: true,
-                  price: true,
-                  colors: true,
-                  countLeft: true,
-                  countSold: true,
-                  description: true,
-                  photos: true,
-                  size: true,
-                  rate: true,
-                  _count: {
-                    select: {
-                      reviews: true
+                  select: {
+                    id: true,
+                    name: true,
+                    price: true,
+                    colors: true,
+                    countLeft: true,
+                    countSold: true,
+                    description: true,
+                    photos: true,
+                    size: true,
+                    rate: true,
+                    _count: {
+                      select: {
+                        reviews: true
+                      }
                     }
                   }
                 },
@@ -80,7 +81,7 @@ export class AuthService {
         if (user.password !== hash) return {error: "Wrong password"};
 
         delete user.password;
-        return { user, token: generateToken({ id: user.id, name, password }) };
+        return { user, token: generateToken({ id: user.id, name: user.name, password }) };
     }
     async me(token: string) {
       const tokenStatus = verifyToken(token);
