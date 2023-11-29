@@ -104,9 +104,11 @@ export default function Header() {
                         <span>Card</span>
                         {itemList !== null && <div className={styles.countOrders}>{itemList.length}</div>}
                         {
-                          isShowBasket && itemList !== null ? <div className={styles.basketPos}>
-                          <div className={styles.basketField}>
-                            <div className={styles.basket}>
+                          itemList !== null ? <div className={styles.basketPos}>
+                          <div className={
+                            styles.basketField
+                            }>
+                            <div className={[isShowBasket ? styles.basket : styles.basketInactive].join(" ")}>
                             <div>
                               {
                                 itemList.map(item => {

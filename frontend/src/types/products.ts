@@ -12,6 +12,7 @@ export default interface IProduct {
     description: string[]
     photos: string[]
     size: string[]
+    rate: number
 
     _count: {
         reviews: number

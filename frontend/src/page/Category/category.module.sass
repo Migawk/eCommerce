@@ -13,9 +13,11 @@
       align-items: center
   &Products
     padding: 80px
-    display: grid
-    gap: 20px
-    grid-template-columns: 1fr 1fr 1fr
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    gap: 36px
+    height: min-content
   &Subcategories
     display: flex
     justify-content: center
@@ -51,15 +53,18 @@
       gap: 20px
       width: 100%
 
+.nav
+  padding: 0 90px
 .sidebar
-  padding: 36px 16px 36px 24px
-  width: 360px
+  padding: 36px 36px 64px 24px
+  min-width: 360px
+  max-width: 360px
   height: 100vh
   overflow-y: scroll
   position: sticky
   top: 0
   &Wrapper
-    padding: 28px 24px
+    padding: 28px 36px
     border-bottom: 1px solid black
   &Price
     display: flex
@@ -142,3 +147,26 @@
   &:hover
     background: $primary
     color: $white
+
+.brand
+  display: flex
+  flex-direction: column
+  gap: 12px
+  &Top
+    display: flex
+    justify-content: space-between
+  &Bottom
+    display: flex
+    border: 1px solid $stroke
+    border-radius: 4px
+    &>input
+      padding: 16px 8px
+      border: none
+    &>button
+      width: 100%
+      background: none
+      border: none
+      cursor: pointer
+      transition: .5s
+      &:hover
+        background: $stroke

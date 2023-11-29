@@ -15,7 +15,9 @@ import favorite from "../../assets/svg/heartFilled.svg";
 
 export default function Customer() {
   const user = useUser(state => state.user);
-  console.log(user);
+
+
+
   if(user === null) return <>
       <Helmet>403 Forbidden</Helmet>
       <main>

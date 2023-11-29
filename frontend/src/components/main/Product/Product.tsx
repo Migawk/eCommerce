@@ -1,7 +1,6 @@
 import IProduct from "../../../types/products.ts";
 import styles from "./product.module.sass";
 import Heart from "../../../assets/svgElements/HeartSVG.tsx";
-import starA from "../../../assets/svg/starActive.svg";
 import { Link } from "react-router-dom";
 import Rate from "../Rate/Rate.tsx";
 
