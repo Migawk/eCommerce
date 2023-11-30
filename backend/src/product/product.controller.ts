@@ -26,8 +26,8 @@ export class ProductController {
     @Get(':id/reviews')
     async getReviews(@Param('id') id, @Query() query) {
         const offset = query.offset || 0;
-        if(!id) throw new HttpException("There isn't id in param", HttpStatus.BAD_REQUEST);
-        if(isNaN(Number(offset))) throw new HttpException("Offset datatype should be 'Integer'.", HttpStatus.BAD_REQUEST);
+        if (!id) throw new HttpException("There isn't id in param", HttpStatus.BAD_REQUEST);
+        if (isNaN(Number(offset))) throw new HttpException("Offset datatype should be 'Integer'.", HttpStatus.BAD_REQUEST);
         return this.service.getReviews(id, Number(offset));
     }
     @Put(':id')
@@ -51,5 +51,9 @@ export class ProductController {
             }
         };
         return res.status(204).end();
+    }
+    @Post(':id/favourite')
+    async toFavourite(@Param() { id }: { id: string }, @Req() req: Request & any) {
+        return this.service.addToFavourite(req.user.data, id);
     }
 }

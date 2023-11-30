@@ -13,7 +13,8 @@ export class ProductModule implements NestModule{
         consumer
             .apply(AuthMiddleware)
             .forRoutes({path: 'product/*', method: RequestMethod.DELETE})
-        
-            
+        consumer
+            .apply(AuthMiddleware)
+            .forRoutes({path: 'product/*/*', method: RequestMethod.POST})
     }
 }

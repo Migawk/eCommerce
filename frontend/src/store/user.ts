@@ -13,12 +13,18 @@ export interface IUser {
   }[]
 }
 
-export const useUser = create((set, get) => ({
+export interface IUserStore {
+  user: IUser
+  setUser: (val: IUser) => {user: IUser}
+  erase: () => {user: null}
+}
+
+export const useUser = create((set) => ({
   user: null,
-  setUser: (val) => set((state) => ({
+  setUser: (val: any) => set(() => ({
     user: val
   })),
-  erase: () => set((state) => ({
+  erase: () => set(() => ({
     user: null
   }))
 }))

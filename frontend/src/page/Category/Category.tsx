@@ -184,7 +184,7 @@ export default function Category() {
                       <h4>BRAND</h4>
                     </div>
                     <div className={styles.brandBottom}>
-                      <input type="text" placeholder="search" />
+                      <input type="text" placeholder="Search" />
                       <button><img src={glass} /></button>
                     </div>
                   </div>

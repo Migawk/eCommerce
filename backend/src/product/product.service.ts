@@ -211,4 +211,59 @@ export class ProductService {
             }
         });
     }
+    async addToFavourite(author: IAuthor, id: string) {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                id: author.id
+            },
+            select: {
+                id: true,
+                name: true,
+                favProducts: true
+            }
+        })
+        if(!user) return -1;
+        let isThere = false;
+        for(let i = 0; i<= user.favProducts.length; i++) {
+            if(!user.favProducts[i]) break;
+            if(user.favProducts[i].id === id) {
+                isThere = true;
+                break;
+            };
+        }
+        if(isThere) {
+            return this.prisma.user.update({
+                where: {
+                    id: author.id
+                },
+                data: {
+                    favProducts: {
+                        disconnect: {
+                            id
+                        }
+                    }
+                },
+                select: {
+                    favProducts: true
+                }
+            })
+        } else {
+            return this.prisma.user.update({
+                where: {
+                    id: author.id
+                },
+                data: {
+                    favProducts: {
+                        connect: {
+                            id
+                        }
+                    }
+                },
+                select: {
+                    favProducts: true
+                }
+            })
+        }
+
+    }
 }

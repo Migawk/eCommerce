@@ -4,24 +4,25 @@ import { Helmet } from "react-helmet";
 
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useUser } from "../store/user.ts";
-import { useItems } from "../store/main.ts";
+import { IUserStore, useUser } from "../store/user.ts";
+import { IItemsStore, useItems } from "../store/main.ts";
 
 interface ILayout {
     children: React.ReactNode;
 }
 
 export default function Layout({ children }: ILayout) {
-  const items = useItems(state => state.items);
-  const setItems = useItems(state => state.setItems);
+  const items = useItems(state => (state as IItemsStore).items);
+  const setItems = useItems(state => (state as IItemsStore).setItems);
 
-  const user = useUser(state => state.user);
-  const setUser = useUser(state => state.setUser);
+  const user = useUser(state => (state as IUserStore).user);
+  const setUser = useUser(state => (state as IUserStore).setUser);
 
   useEffect(() => {
     if(items === null) {
       const localItems = localStorage.getItem("items");
-      if(!localItems && JSON.parse(localItems) === undefined) return;
+      if(!localItems) return;
+      if(JSON.parse(localItems) === undefined) return;
       const itemsList = JSON.parse(localItems);
       if(itemsList.length !== 0) setItems(JSON.parse(localItems));
     }
@@ -30,7 +31,7 @@ export default function Layout({ children }: ILayout) {
 
   useEffect(() => {
     if(!user) {
-      const localUser = localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+      const localUser = localStorage.getItem("user") && JSON.parse(localStorage.getItem("user")!);
       if(!localUser) return;
       setUser(localUser);
     }

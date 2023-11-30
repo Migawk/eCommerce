@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Rate from "../Rate/Rate.tsx";
 
 import { z } from "zod";
+import { useState } from "react";
 
 interface IProductElement {
   data: IProduct;
@@ -24,6 +25,20 @@ export default function ProductElement({data, isFavorited=false}: IProductElemen
     size: z.array(z.string()),
     rate: z.number()
   }).safeParse(data);
+  const [isFav, setFav] = useState(isFavorited)
+
+  function changeFavorite() {
+    fetch("http://localhost:3000/product/"+data.id+"/favourite",
+    {
+      method: "POST",
+      credentials: "include"
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        if("favProducts" in res) setFav(pr => !pr);
+      });
+  }
 
   if(!parse.success) return <div>bad</div>;
   return (
@@ -41,7 +56,11 @@ export default function ProductElement({data, isFavorited=false}: IProductElemen
             <div className={styles.infoDescription}>{data.description[0].slice(0, 32)}</div>
           </div>
           <div className={styles.infoRight}>
-            {isFavorited ? <Heart color="FF303F"/> : <Heart color="28303F"/>}
+            <button onClick={() => {
+              changeFavorite()
+            }}>
+              {isFav ? <Heart color="FF303F"/> : <Heart color="28303F"/>}
+            </button>
           </div>
         </div>
         <div className={styles.rate}>
