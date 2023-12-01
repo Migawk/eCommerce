@@ -4,6 +4,11 @@
   padding: 0 90px
   color: $primary
 
+.article
+  display: flex
+  gap: 60px
+  justify-content: space-between
+
 .title
   margin-bottom: 32px
   display: flex
@@ -35,6 +40,15 @@
   &Image
     border: 1px solid $stroke
     border-radius: 12px
+  &Color
+    padding: 4px 0
+    display: flex
+    align-items: center
+    gap: 4px
+    &>div
+      width: 12px
+      height: 12px
+      border-radius: 50%
 
 .garbage
   background: none
@@ -52,3 +66,39 @@
 
   &:hover
     background: $orange2
+
+.sidebar
+  background: $gray2
+  padding: 40px 20px
+  &Options
+    display: flex
+    flex-direction: column
+    gap: 16px
+    font-size: 14px
+    margin-top: 12px
+  &Option
+    display: flex
+    justify-content: space-between
+  &Checkout
+    width: 100%
+    &>*
+      width: 100%
+
+.coupon
+  display: flex
+  margin-top: 32px
+  &>input
+    width: 65%
+    text-align: center
+    border-left: 1px solid $stroke
+    border-top: 1px solid $stroke
+    border-bottom: 1px solid $stroke
+    border-radius: 4px
+  &>button
+    border-top-left-radius: 0
+    border-bottom-left-radius: 0
+    text-align: center
+    background: $primary
+    color: $white
+    cursor: pointer
+    padding: 10px 8px

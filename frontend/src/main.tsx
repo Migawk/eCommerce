@@ -21,6 +21,7 @@ import Favorites from "./page/Favorites/Favorites.tsx";
 import Basket from "./page/Basket/Basket.tsx";
 import Customer from "./page/Customer/Customer.tsx";
 import Test from './page/Test.tsx';
+import Checkout from './page/Checkout/Checkout.tsx';
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
   {
     path: "/customer",
     element: <Layout><Customer/></Layout>
+  },
+  {
+    path: "/checkout",
+    element: <Layout><Checkout/></Layout>
   }
 ]);
 

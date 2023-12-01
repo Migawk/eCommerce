@@ -177,11 +177,12 @@ nav>ul
     position: absolute
   &Field
     height: 100px
-    width: 0
-  &Inactive
-    width: 272px
+    width: 200px
+  &Active
     position: relative
-    left: -186px
+    // height: 200px
+  &Inactive
+    position: relative
     border-radius: 8px
 
     overflow: hidden
@@ -190,6 +191,8 @@ nav>ul
     padding: 20px 24px
     transition: .5s
     opacity: 0
+  &Anim
+    transition: .5s
   
   &Element
     width: 224px
